@@ -1,4 +1,4 @@
-# WPI-RBE-501-Team-8-Fall-2015
+# ATLAS Kneeling Model
 
 | Step | MATLAB| C++ |
 | ------------- | ------------- | ------------- |
