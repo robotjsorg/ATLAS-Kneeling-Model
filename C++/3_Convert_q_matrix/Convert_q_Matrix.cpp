@@ -10,7 +10,7 @@ int main() {
 	streampos size;
 	char * memblock;
 
-	ifstream file ( "../MATLAB/Position_Kinematic/q_matrix_1.m", ios::in|ios::binary|ios::ate);
+	ifstream file ( "../MATLAB/1_Position_Kinematics/q_Matrix_1.m", ios::in|ios::binary|ios::ate);
 	if (file.is_open())
 	{
 		size = file.tellg();
@@ -21,14 +21,14 @@ int main() {
 
 		cout << "the entire file content is in memory";
 
-		// CONVERT TO C++ ARRAY
-
 		// OUTPUT IT TO A NEW FILE
-		ofstream myfile ("example.txt");
+		ofstream myfile ("q_Matrix_1.cpp");
 		if (myfile.is_open())
 		{
-			myfile << "This is a line.\n";
-			myfile << "This is another line.\n";
+			cout << memblock;
+
+			// CONVERT IT TO A C++ ARRAY
+
 			myfile.close();
 		}
 		else cout << "Unable to open file";
