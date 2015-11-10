@@ -7,3 +7,5 @@ PITCH = [];
 YAW = [];
 MASS=[];
 INERTIA=[];
+X = vpa(X,3)
+l = length(LinkName)
