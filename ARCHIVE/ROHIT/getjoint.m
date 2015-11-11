@@ -1,5 +1,4 @@
- function T1 = getjoint(Curr_joints,select_config,target_joint) 
-% Curr_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ; 
+ function [T1,T2,T3] = getjoint(Curr_joints) 
 
 syms q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 q18 q19 q20
 % Setting up values for DH parameters for references
@@ -49,10 +48,8 @@ for i = 1:length(d)
     jointPoint(:,i)   = Tbase_to_frame{i}*[0;0;0;1];
 end
 
-if(select_config==1)
-    T1 = Tbase_to_frame{target_joint} ;
-end
-    
+    T1 = Tbase_to_frame ;
+   
 Tpelvis = vpa(Tbase_to_frame(7),3) ;
 
 % Intermediate Transformation matrix at Pelvis
@@ -63,7 +60,6 @@ iRx = [1 0 0 0; 0 cosd(0) -sind(0) 0; 0 sind(0) cosd(0) 0;0 0 0 1];
 
 T_inter = iRz*iTz*iTx*iRx;
    
-if(select_config == 2)
     %DH parameters for left arm
     d_l     = vpa([0.162,0,0.1406,0,-0.245,0],3);
     theta_l = vpa([q14,pi/2+q15,q16,pi/2,q19,q20+pi],3);
@@ -80,10 +76,7 @@ if(select_config == 2)
         jointPoint(:,i)   = Tbase_to_frame_l{i}*[0;0;0;1];
     end
     
-    T1 = Tbase_to_frame_l{target_joint} ;
-end
-
-if(select_config == 3)
+    T2 = Tbase_to_frame_l;
 
     % DH Parameters for right arm
 
@@ -100,8 +93,8 @@ if(select_config == 3)
         T_prev            = Tbase_to_frame_r{i};
         jointPoint(:,i)   = Tbase_to_frame_r{i}*[0;0;0;1];
     end
-    T1 = Tbase_to_frame_r{target_joint} ;
-end
+    T3 = Tbase_to_frame_r ;
+
 
 % IGNORE THIS FOR A WHILE
 %

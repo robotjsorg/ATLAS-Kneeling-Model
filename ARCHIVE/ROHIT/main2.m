@@ -19,15 +19,16 @@ Curr_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
 Init_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
 Final_joints = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,-90,0,90,0] ;
 
-[Tleft_frame,Tleft_frame_larm,Tleft_frame_rarm] = getjoint(Curr_joints) ;
+
+    [T_frame,Tframe_larm,Tframe_rarm] = gettransform() ;
 for i=1:15
-    T = Tleft_frame{i}
+    T = T_frame{i}
 end
 
 for i =1:6
-    T = Tleft_frame_larm{i}
+    T = Tframe_larm{i}
 end
 for i =1:6
-    T = Tleft_frame_rarm{i}
+    T = Tframe_rarm{i}
 end
-     
+
