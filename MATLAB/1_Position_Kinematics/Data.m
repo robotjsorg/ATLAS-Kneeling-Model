@@ -12,13 +12,3 @@ MASS=[];
 ROLL = [];
 PITCH = [];
 YAW = [];
-<<<<<<< HEAD:MATLAB/Position Kinematics/Data.m
-MASS=[];
-INERTIA=[];
-X = vpa(X,3)
-l = length(LinkName)
-=======
-
-% Not absolutely needed because we are only calculating Center of Mass
-INERTIA=[];
->>>>>>> master:MATLAB/1_Position_Kinematics/Data.m
