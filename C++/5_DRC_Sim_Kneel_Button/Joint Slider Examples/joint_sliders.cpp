@@ -39,6 +39,9 @@ JointSliders::JointSliders() :
 	// ros msg stuff
 
 	this->jointInfo_pub = this->nh->advertise<wrecs_msgs::field_command>(WRECS_NAMES::GUI_JOINT_SLIDERS_CONTROL_TOPIC, 10);
+
+	take the subscribed data, find the difference of it from the next q-state, send the next q-state command.
+
 	this->jointInfo_sub = this->nh->subscribe(WRECS_NAMES::GUI_JOINT_SLIDERS_STATUS_TOPIC, 1,
 
 		&JointSliders::JointSlidersMSG, this);
