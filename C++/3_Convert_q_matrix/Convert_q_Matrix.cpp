@@ -4,7 +4,6 @@
 #include <fstream>
 using namespace std;
 
-// 
 int main() {
 	// READ THE MATLAB FILE
 	streampos size;
@@ -22,7 +21,7 @@ int main() {
 		cout << "the entire file content is in memory";
 
 		// OUTPUT IT TO A NEW FILE
-		ofstream myfile ("q_Matrix_1.cpp");
+		ofstream myfile ("../q_Matrix_1.cpp");
 		if (myfile.is_open())
 		{
 			cout << memblock;
