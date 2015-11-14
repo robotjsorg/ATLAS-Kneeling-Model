@@ -13,7 +13,7 @@ Joe: Convert_q_matrix.cpp, Output_q_matrix.m.
 
 Eric: Check_if_Balanced.m, Check_Torques.m.
 
-Thaddeus: Center_of_Mass.m, Data.m.
+Thaddeus: Center_of_Mass.m, Data.m, Output_q_matrix.m.
 
 Rohit: Position and velocity kinematics, DRC Kneel Button (Kneel.cpp).
 
