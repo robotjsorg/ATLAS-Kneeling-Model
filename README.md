@@ -10,7 +10,11 @@
 | 6. | B. 3D plots and Animations| |
 
 Joe: Convert_q_matrix.cpp, Output_q_matrix.m.
+
 Eric: Check_if_Balanced.m, Check_Torques.m.
+
 Thaddeus: Center_of_Mass.m, Data.m.
+
 Rohit: Position and velocity kinematics, DRC Kneel Button (Kneel.cpp).
+
 Srishti: Check_if_Balanced_on_LFoot.m, Check_if_Balanced_on_Two_Feet.m, etc. DRC Kneel Button (Kneel.cpp).
