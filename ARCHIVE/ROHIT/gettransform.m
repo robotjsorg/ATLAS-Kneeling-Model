@@ -1,12 +1,12 @@
  function [T1,T2,T3] = gettransform() 
-% Curr_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ; 
+ 
+ % this function returns three cells which contain transformation matrices
+ % in symbolic form. T1 contains all from left toe to right toe. T2
+ % contains all from pelvis to left arm and T3 contains from pelvis to
+ % right arm. These will be further used in making jacobians for velocity
+ % kinematics with pelvis as the base.
 
 syms q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11 q12 q13 q14 q15 q16 q17 q18 q19 q20
-% Setting up values for DH parameters for references
-% q1 = Curr_joints(1); q2 = Curr_joints(2); q3 = Curr_joints(3);q4 = Curr_joints(4);q5 = Curr_joints(5);
-% q6 = Curr_joints(6); q7 = Curr_joints(7); q8 = Curr_joints(8);q9 = Curr_joints(9);q10 = Curr_joints(10);
-% q11 = Curr_joints(11); q12 = Curr_joints(12);q13 = Curr_joints(13);q14 = Curr_joints(14);q15 = Curr_joints(15);
-% q16 = Curr_joints(16); q17 = Curr_joints(17);q18 = Curr_joints(18);q19 = Curr_joints(19);q20 = Curr_joints(20);
 
 d1 = .422;
 d2 = sqrt(.05^2+.374^2);
@@ -25,10 +25,9 @@ tq8 = tq2;
 %DH parameters for legs
 d       = vpa([0,0,0,-d3,0,0,0,0,0,d6,0,0,0,0,0],3);
 theta   = vpa([q1,q2,q3+tq2,q4-tq4,tq3,q5-pi/2,q6,q7,q8,q9+tq6,pi/2-tq6,q10+tq8,q11-tq8,q12,q13],3);
-a       = vpa([0,d1,d2,d4,0,0,-d5,-d5,0,-d7,0,-d8,d1,0,0],3);
+a       = vpa([0,d1,d2,d4,0,0,-d5,-d5,0,-d7,0,-d8,-d1,0,0],3);
 alpha   = [pi/2,0,0,0,-pi/2,-pi/2,0,0,pi/2,0,pi/2,0,0,-pi/2,0];
  
-% T_identity = [1,0,0,0;0,1,0,0;0,0,1,0;0,0,0,1] ;
       
 %DH Table
 DHpars = vpa([d;theta;a;alpha],3) ;
