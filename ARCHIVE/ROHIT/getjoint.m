@@ -6,7 +6,7 @@
  % transformations are numerical. The cell contain a series 4x4
  % transformation matrices which are of datatype double. These will be much
  % easier to handle than symbolic for fast calculations.
- 
+ %
 % Setting up values for DH parameters for references
 q1 = Curr_joints(1); q2 = Curr_joints(2); q3 = Curr_joints(3);q4 = Curr_joints(4);q5 = Curr_joints(5);
 q6 = Curr_joints(6); q7 = Curr_joints(7); q8 = Curr_joints(8);q9 = Curr_joints(9);q10 = Curr_joints(10);

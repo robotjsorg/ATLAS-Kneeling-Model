@@ -4,7 +4,7 @@
 % pushes the hip joints above instead of below. I'm going to work on
 % symbolic functions from pelvis and then to derive jacobians and take a
 % break from this.
-
+%
 Init_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
 Final_joints = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,90,0,-90,0]*pi/180 ;
 

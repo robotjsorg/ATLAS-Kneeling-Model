@@ -1,6 +1,6 @@
 % this function gets transform from pelvis and considers each limb as an end
 % effector.
-
+%
 % WORK IN PROGRESS
 
 % function [T1,T2,T3,T4] = frompelvis(Ttoetotoe_frame,Tlarm_frame,Trarm_frame)
