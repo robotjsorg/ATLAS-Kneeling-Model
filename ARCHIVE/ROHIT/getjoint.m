@@ -42,7 +42,7 @@ a = [0,d1,d2,d4,...
      -d1,0,0];
 alpha = [pi/2,0,0,0,...
          -pi/2,-pi/2,0,0,...
-         pi/2,0,pi/20,0,...
+         pi/2,0,pi/2,0,...
          0,-pi/2,0];
 
 % Matrix for left toe
@@ -62,7 +62,7 @@ for i = 1:length(d)
     T_prev         = Temp;
     Tbase_to_frame{i} = double(Temp) ;
     if(i == 7)
-        Tpelvis = Temp ;
+        Tpelvis = double(Temp) ;
     end
 end
 
@@ -82,14 +82,14 @@ T_inter = iRz*iTz*iTx*iRx;
     a_l     = [-0.0125,0,-0.5276,0.2256,0.11,-0.605762];
     alpha_l = [-pi/2,pi/2,0,-pi/2,pi/2,0]; 
 
-    T_prev = Tpelvis*T_inter ;
+    T_prev = [1,0,0,0;0,1,0,0;0,0,1,0;0,0,0,1] ;
 
     DHpars_l = vpa([d_l;theta_l;a_l;alpha_l],3) ;
     for i = 1:length(d_l)
         Trans          = dhtransform(DHpars_l(:,i));              %Generate transform from DHparams
         Temp           = vpa(T_prev*Trans,3);                %base to current frame transform
         T_prev         = Temp;
-        Tbase_to_frame_l{i} = double(Temp);
+        Tbase_to_frame_l{i} = Tpelvis*T_inter*double(Temp);
     end
     
     T2 = Tbase_to_frame_l;
@@ -100,14 +100,15 @@ T_inter = iRz*iTz*iTx*iRx;
     theta_r = [q14,pi/2+q15,q16,pi/2,q17,q18];
     a_r     = [-0.0125,0,-0.5276,-0.2256,-0.11,-0.605762];
     alpha_r = [-pi/2,pi/2,0,-pi/2,pi/2,0];
-    T_prev = Tpelvis*T_inter ;
+    
+    T_prev = [1,0,0,0;0,1,0,0;0,0,1,0;0,0,0,1] ;
 
     DHpars_r = vpa([d_r;theta_r;a_r;alpha_r],3) ;
     for i = 1:length(d_r)
         Trans          = dhtransform(DHpars_r(:,i));              %Generate transform from DHparams
         Temp           = vpa(T_prev*Trans,3);                %base to current frame transform
         T_prev         = Temp;
-        Tbase_to_frame_r{i} = double(Temp);
+        Tbase_to_frame_r{i} = Tpelvis*T_inter*double(Temp);
     end
     T3 = Tbase_to_frame_r ;
 
