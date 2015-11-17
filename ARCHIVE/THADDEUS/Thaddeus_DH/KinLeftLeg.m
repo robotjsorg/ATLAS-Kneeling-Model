@@ -1,6 +1,6 @@
 function [ TransLL, jointPoint, Pelvis2lToe ] = KinLeftLeg( jointAngles )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+% Summary of this function goes here
+% Detailed explanation goes here
 
     q = [0.089,0.0867870958,0.3773436762,0.422];
     

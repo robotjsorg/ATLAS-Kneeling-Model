@@ -38,7 +38,7 @@ Rotx = [1,          0,           0, 0;
         0,          0,           0, 1];
 
 %Calculate the net 4x4 homogeneous transformation matrix
-Trans = simplify(Rotz*Transz*Transx*Rotx));
+Trans = simplify(Rotz*Transz*Transx*Rotx);
 
 end
 

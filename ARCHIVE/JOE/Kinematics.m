@@ -2,9 +2,6 @@
 %%% DH Tables
 
 clc; clear all;
-
-    % Test import of XML frame data from DRC Sim.
-    % THIS IS THROWING AN ERROR! DOMNode = xmlread(data);
    
     % Both legs
     d =     [-15,0,0,0,0,0,0,0,0,0,0,0,0,15];
