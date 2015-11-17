@@ -12,6 +12,3 @@ MASS=[];
 ROLL = [];
 PITCH = [];
 YAW = [];
-
-% Not absolutely needed because we are only calculating Center of Mass
-INERTIA=[];
