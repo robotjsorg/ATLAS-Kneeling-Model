@@ -4,10 +4,10 @@
 %JointAngle = [q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20];
 
 %%StandingPose
-jointAngles = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+%jointAngles = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 %%Kneeling Pose
-%jointAngles = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,-90,0,90,0];
+jointAngles = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,-90,0,90,0];
 
 % Setting up values for DH parameters for references
 d1 = .422
@@ -37,6 +37,9 @@ theta = [jointAngle(1),jointAngle(2),jointAngle(3)+tq2,jointAngle(4)-tq4,...%1-4
         tq3,jointAngle(5)-90,jointAngle(6),jointAngle(7),...%5-8
         jointAngle(8),jointAngle(9)+tq6,90-tq6,jointAngle(10)+tq8,...%9-12 
         jointAngle(11)-tq8,jointAngle(12),jointAngle(13)];%13-15
+    
+    
+
 a = [0,d1,d2,d4,...
      0,0,-d5,-d5,...
      0,-d7,0,-d8,...
@@ -45,6 +48,8 @@ alpha = [90,0,0,0,...
          -90,-90,0,0,...
          90,0,90,0,...
          0,-90,0];
+     
+
 
 %DH Table
 DHpars = [d',theta',a',alpha'];
@@ -91,6 +96,7 @@ d =     [.162,0,.1406,0,-.245,0];
 theta = [q1,90+q2,q3,90,q4,q5];
 a =     [-.0125,0,-.5276,-.2256,-.11,-.605762];
 alpha = [-90,90,0,-90,90,0];
+
 
     numberOfJoints = length(d);
     
@@ -202,15 +208,17 @@ TLToe2LShoulder = TLtoe2Pelvis*InterTrans*cell2mat(T0LX{1,6});
 
 %% Combine DH Positions For Ploting
 %Reorient the positions to have the pelvis at 0,0,0 for drawing purposes
-Z = jointPoint(1,:)-.862; X = jointPoint(3,:); Y = -jointPoint(2,:)+.1115;
+%Z = jointPoint(1,:)-.862; X = jointPoint(3,:); Y = -jointPoint(2,:)+.1115;
+
+Z = jointPoint(1,:); X = jointPoint(3,:); Y = jointPoint(2,:);
 Ps = [X',Y',Z'];
 last = 15;
 figure()
 scatter3(X(1:last),Y(1:last),Z(1:last))
 hold on
 plot3(X(1:last),Y(1:last),Z(1:last))
-plot3(xR'+ X(7),yR'+ Y(7),zR'+ Z(7),'-o');
-plot3(xL'+ X(7),yL'+ Y(7),zL'+ Z(7),'-o');
+%plot3(xR'+ X(7),yR'+ Y(7),zR'+ Z(7),'-o');
+%plot3(xL'+ X(7),yL'+ Y(7),zL'+ Z(7),'-o');
 %axis([-1,1,-1,1,-1,1])
 axis equal;
 

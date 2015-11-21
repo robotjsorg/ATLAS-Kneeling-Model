@@ -8,7 +8,8 @@
 Init_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
 Final_joints = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,90,0,-90,0]*pi/180 ;
 
-Curr_joints = Init_joints ;
+%Curr_joints = Init_joints ;
+Curr_joints = Final_joints ;
 
 [Tleft_frame,Tleft_frame_larm,Tleft_frame_rarm] = getjoint(Curr_joints) ;
 for i=1:15
@@ -32,7 +33,13 @@ end
 loc_t = horzcat(loc,loc_left,loc_right) ;
 
 figure()
-scatter3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:), 'filled' ) ;
+scatter3(loc_t(1,:) ,loc_t(2,:), loc_t(3,:), 'filled' ) ;
 hold on 
-plot3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:)) ;
+plot3(loc_t(1,:) ,loc_t(2,:), loc_t(3,:)) ;
 axis equal
+
+%figure()
+%scatter3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:), 'filled' ) ;
+%hold on 
+%plot3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:)) ;
+%axis equal
