@@ -6,7 +6,7 @@
  % transformations are numerical. The cell contain a series 4x4
  % transformation matrices which are of datatype double. These will be much
  % easier to handle than symbolic for fast calculations.
- 
+ %
 % Setting up values for DH parameters for references
 q1 = Curr_joints(1); q2 = Curr_joints(2); q3 = Curr_joints(3);q4 = Curr_joints(4);q5 = Curr_joints(5);
 q6 = Curr_joints(6); q7 = Curr_joints(7); q8 = Curr_joints(8);q9 = Curr_joints(9);q10 = Curr_joints(10);
@@ -73,6 +73,8 @@ iRz = [cosd(90) -sind(90) 0 0; sind(90) cosd(90) 0 0; 0 0 1 0; 0 0 0 1] ;
 iTz = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ;
 iTx = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ; 
 iRx = [1 0 0 0; 0 cosd(0) -sind(0) 0; 0 sind(0) cosd(0) 0;0 0 0 1];
+
+%-0.862 ,loc_t(2,:)+ 0.115
 
 T_inter = iRz*iTz*iTx*iRx;
    

@@ -2,12 +2,12 @@
 
 | Step | MATLAB| C++ |
 | ------------- | ------------- | ------------- |
-| 1. | A. Position Kinematics  | |
-| 2. | A. Output q-matrix  | |
-| 3. | |  A. Convert q-matrix |
-| 4. | B. Verify q-matrix |  A. Verify q-matrix |
-| 5. | |  A. DRC Kneel Button |
-| 6. | B. 3D plots and Animations| |
+| 1. | Position Kinematics  | |
+| 2. | Output q-matrix  | |
+| 3. | |  Convert q-matrix |
+| 4. | Verify q-matrix |  Verify q-matrix |
+| 5. | |  DRC Kneel Button |
+| 6. | 3D plots and Animations| |
 
 Joe: Convert_q_matrix.cpp, Output_q_matrix.m.
 
