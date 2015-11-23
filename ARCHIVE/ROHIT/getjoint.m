@@ -74,6 +74,8 @@ iTz = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ;
 iTx = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ; 
 iRx = [1 0 0 0; 0 cosd(0) -sind(0) 0; 0 sind(0) cosd(0) 0;0 0 0 1];
 
+%-0.862 ,loc_t(2,:)+ 0.115
+
 T_inter = iRz*iTz*iTx*iRx;
    
     %DH parameters for left arm

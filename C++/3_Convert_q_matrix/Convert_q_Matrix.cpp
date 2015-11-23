@@ -1,44 +1,89 @@
-// JOE IS WORKING ON THIS.
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-int main() {
-	// READ THE MATLAB FILE
-	streampos size;
-	char * memblock;
+#include <cstring>
 
-	ifstream file ( "../MATLAB/1_Position_Kinematics/q_Matrix_1.m", ios::in|ios::binary|ios::ate);
-	if (file.is_open())
-	{
-		size = file.tellg();
-		memblock = new char [size];
-		file.seekg (0, ios::beg);
-		file.read (memblock, size);
-		file.close();
+const int MAX_CHARS_PER_LINE = 512;
+const int MAX_TOKENS_PER_LINE = 20;
+const char* const DELIMITER = " ,;[]=\t";
 
-		cout << "the entire file content is in memory";
+int lines() {
+  ifstream fin;
+  fin.open("../../MATLAB/q_Matrix_1.m");
 
-		// OUTPUT IT TO A NEW FILE
-		ofstream myfile ("../q_Matrix_1.cpp");
-		if (myfile.is_open())
-		{
-			cout << memblock;
+  int lines = 0;
+  std::string line;
 
-			// CONVERT IT TO A C++ ARRAY
+  while (std::getline(fin, line))
+      ++lines;
 
-			myfile.close();
-		}
-		else cout << "Unable to open file";
-
-		delete[] memblock;
-	}
-	else cout << "Unable to open file";
-
-return 0;
+  return lines;
 }
 
-double convert_q_matrix[]() {
+int main()
+{
+  ifstream fin;
+  fin.open("../../MATLAB/q_Matrix_1.m");
+  lines();
+  int lines_counter = 0;
 
+  ofstream myfile ("../q_Matrix_1.cpp");
+
+  if (!fin.good()) 
+    return 1;
+
+  const char* token[MAX_TOKENS_PER_LINE] = {};
+
+  myfile << "double q_matrix[3][" << lines() << "] = {" << endl;
+
+  while (!fin.eof())
+  {
+    char buf[MAX_CHARS_PER_LINE];
+    fin.getline(buf, MAX_CHARS_PER_LINE);
+    
+    int n = 0;
+    
+    token[0] = strtok(buf, DELIMITER);
+    if (token[0])
+    {
+      for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
+      {
+        token[n] = strtok(0, DELIMITER);
+        if (!token[n]) break;
+      }
+    }
+
+    myfile << "{";
+    for (int i = 0; i < n; i++)
+    {
+      cout << token[i] << endl;
+      if (strncmp(token[i], "q_matrix", 8))
+      {
+        if (i<n-1)
+        {
+          myfile << token[i] << ", ";
+        } else
+        {
+          myfile << token[i];
+        }
+      }
+    }
+    if(lines_counter == lines())
+    {
+      myfile << "}" << endl;
+    }
+    else
+    {
+      myfile << "}," << endl;
+    }
+
+    lines_counter++;
+  }
+  myfile << "};";
+  myfile.close();
+
+  return 0;
 }
