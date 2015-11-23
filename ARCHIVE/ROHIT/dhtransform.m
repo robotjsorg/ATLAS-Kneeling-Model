@@ -13,6 +13,9 @@ theta = params(2);
 a     = params(3);
 alpha = params(4);
 
+% this function returns the DH transformation matrix from given dh
+% parameters. Note that the value of angle is in radians.
+
 % Transform for aligning previous x with common normal
 Rotz = [cos(theta), -sin(theta), 0, 0;
         sin(theta),  cos(theta), 0, 0;
@@ -38,7 +41,7 @@ Rotx = [1,          0,           0, 0;
         0,          0,           0, 1];
 
 %Calculate the net 4x4 homogeneous transformation matrix
-Trans = simplify(Rotz*Transz*Transx*Rotx);
+Trans = Rotz*Transz*Transx*Rotx;
 
 end
 
