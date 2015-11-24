@@ -7,4 +7,4 @@
 | 3. | Dynamics | |
 | 3. | |  Convert q-matrix |
 | 4. | |  DRC Sim |
-| 5. | 3D plots and Animations| |
+| 5. | 3D plots and animations| |
