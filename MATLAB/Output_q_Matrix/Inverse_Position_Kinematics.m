@@ -1,2 +1,3 @@
-% THADDEUS AND ROHIT ARE WORKING ON THIS.
-% This is not absolutely neccersary because we are moving so slowly and are modeling a statically stable system.
+function( Inverse_Position_Kinematics ) = Inverse_Position_Kinematics( q )
+	Inverse_Position_Kinematics = 0;
+end
