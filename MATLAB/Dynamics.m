@@ -1,5 +1,5 @@
 load('q1.m');
-load('Data.m')
+load('Data.m');
 load('Kinematics/Position_Kinematics.m');
 load('Kinematics/Positions.m');
 load('Kinematics/Link_Centers_of_Masses.m');
