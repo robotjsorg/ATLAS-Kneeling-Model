@@ -1,2 +1,3 @@
-% THADDEUS AND ROHIT ARE WORKING ON THIS.
-% This is not absolutely neccersary because we are moving so slowly and are modeling a statically stable system.
+function[ Radii ] = Radii( Link_Centers_of_Masses, Positions )
+	Radii = 0;
+end

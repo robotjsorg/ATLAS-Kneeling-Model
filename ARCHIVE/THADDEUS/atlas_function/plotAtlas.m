@@ -1,6 +1,4 @@
-function [  ] = plotAtlas( Atlasplot, q )
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+function[] = plotAtlas( Atlasplot, q )
 global T1 T2 T3 lt1 lt2 lt3 totalLength
 
 p = [0;0;0;1];
@@ -29,4 +27,3 @@ set(Atlasplot.output,'ydata',points(2,:))
 set(Atlasplot.output,'zdata',points(3,:))
 
 end
-

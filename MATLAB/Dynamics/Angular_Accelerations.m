@@ -1,2 +1,3 @@
-% THADDEUS AND ROHIT ARE WORKING ON THIS.
-% This is not absolutely neccersary because we are moving so slowly and are modeling a statically stable system.
+function[ Angular_Accelerations ] = Angular_Accelerations( q1, q2, Time_Increment )
+	Angular_Accelerations = 0;
+end

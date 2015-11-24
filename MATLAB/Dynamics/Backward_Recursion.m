@@ -1,2 +1,3 @@
-% THADDEUS AND ROHIT ARE WORKING ON THIS.
-% This is not absolutely neccersary because we are moving so slowly and are modeling a statically stable system.
+function[ Backward_Recursion ] = Backward_Recursion( Forward_Recursion, Radii, Inertia )
+	Backward_Recursion = 0;
+end

@@ -1,2 +1,3 @@
-% THADDEUS AND ROHIT ARE WORKING ON THIS.
-% This is not absolutely neccersary because we are moving so slowly and are modeling a statically stable system.
+function[ Forward_Recursion ] = Forward_Recursion( T, Angular_Velocities, Angular_Accelerations )
+	Forward_Recursion = 0;
+end

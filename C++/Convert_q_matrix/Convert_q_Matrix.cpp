@@ -12,7 +12,7 @@ const char* const DELIMITER = " ,;[]=\t";
 
 int lines() {
   ifstream fin;
-  fin.open("../../MATLAB/q_Matrix_1.m");
+  fin.open("../../MATLAB/q1.m");
 
   int lines = 0;
   std::string line;
@@ -26,18 +26,18 @@ int lines() {
 int main()
 {
   ifstream fin;
-  fin.open("../../MATLAB/q_Matrix_1.m");
+  fin.open("../../MATLAB/q1.m");
   lines();
   int lines_counter = 0;
 
-  ofstream myfile ("../q_Matrix_1.cpp");
+  ofstream myfile ("../q1.cpp");
 
   if (!fin.good()) 
     return 1;
 
   const char* token[MAX_TOKENS_PER_LINE] = {};
 
-  myfile << "double q_matrix[3][" << lines() << "] = {" << endl;
+  myfile << "double q[3][" << lines() << "] = {" << endl;
 
   while (!fin.eof())
   {
@@ -60,7 +60,7 @@ int main()
     for (int i = 0; i < n; i++)
     {
       cout << token[i] << endl;
-      if (strncmp(token[i], "q_matrix", 8))
+      if (strncmp(token[i], "q", 8))
       {
         if (i<n-1)
         {
