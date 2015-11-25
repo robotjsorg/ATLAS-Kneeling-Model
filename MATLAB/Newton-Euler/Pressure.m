@@ -1,3 +1,3 @@
-function[ Pressure ] = Pressure( q )
-	Pressure = 0;
+function[] = Pressure()
+	return 0;
 end

@@ -1,3 +1,3 @@
-function[ Torques ] = Torques( BackwardRecursion )
-	Torques = 0;
+function[] = Torques()
+	return 0;
 end

@@ -1,3 +1,3 @@
-function[ BackwardRecursion ] = BackwardRecursion( ForwardRecursion, Radii, Inertia )
-	BackwardRecursion = 0;
+function[] = BackwardRecursion()
+	return 0;
 end

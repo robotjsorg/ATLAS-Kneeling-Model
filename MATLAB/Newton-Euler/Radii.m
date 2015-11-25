@@ -1,3 +1,3 @@
-function[ Radii ] = Radii( LinkCentersofMasses, Positions )
-	Radii = 0;
+function[] = Radii()
+	return 0;
 end
