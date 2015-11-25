@@ -1,5 +1,6 @@
-% Top Level Data Structure
-data = struct;
+global LFootRFoot;
+global PelvisLArm;
+global PelvisRArm;
 
 % Joint Names
 Joint = {'pelvis';'ltorso';'mtorso';'utorso';'lclav';'lscap';'luarm';'llarm';'lufarm';'llfarm';'lhand';'head';'hokuyolink';'rclav';'rscap';'ruarm';'rlarm';'rufarm';'rlfarm';'rhand';'luglut';'llglut';'luleg';'llleg';'ltalus';'lfoot';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot'};
@@ -43,18 +44,64 @@ izz = [0.117936,0.00174492,0.000444215,0.577362,0.004,0.00583,0.00656,...
     0.00106487,0.02,0.01,1.30101*10^(-5),0.008,0.00041242,0.00106487,...
     0.02,0.01,1.30101*10^(-5),0.008];
 
-for i = 1:length( Joint )
-    data(i).Joint = Joint( i );
-    data(i).X = X( i );
-    data(i).Y = X( i );
-    data(i).Z = X( i );
-    data(i).M = X( i );
-    data(i).ixx = ixx(i);
-    data(i).ixy = ixx(i);
-    data(i).ixz = ixx(i);
-    data(i).iyy = ixx(i);
-    data(i).iyz = ixx(i);
-    data(i).izz = ixx(i);
+% Which q is which?
+qNames = {'lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot','ltorso','mtorso','utorso','rclav','utorso','lclav'};
+
+for i = 1:length(LFootRFoot)
+    linkNames = {'lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot'};   
+    LFootRFoot(i).name = qNames(i);
+    for j = 1:length(Joint)
+        if Joint(j) == LFootRFoot(i).name
+            d = j;
+            LFootRFoot(i).m = M(d);
+            LFootRFoot(i).ixx = ixx(d);
+            LFootRFoot(i).ixy = ixy(d);
+            LFootRFoot(i).ixz = ixz(d);
+            LFootRFoot(i).iyy = iyy(d);
+            LFootRFoot(i).iyz = iyz(d);
+            LFootRFoot(i).izz = izz(d);
+        else
+            display('No name found!');
+        end
+    end
+end
+
+for i = 1:length(PelvisRArm)
+    linkNames = {'pelvis','ltorso','mtorso','utorso','rclav'};
+    PelvisRArm(i).name = qNames(i);
+    for j = 1:length(Joint)
+        if Joint(j) == PelvisRArm(i).name
+            d = j;
+            PelvisRArm(i).m = M(d);
+            PelvisRArm(i).ixx = ixx(d);
+            PelvisRArm(i).ixy = ixy(d);
+            PelvisRArm(i).ixz = ixz(d);
+            PelvisRArm(i).iyy = iyy(d);
+            PelvisRArm(i).iyz = iyz(d);
+            PelvisRArm(i).izz = izz(d);
+        else
+            display('No name found!');
+        end
+    end
+end
+
+for i = 1:length(UTorsoLArm)
+    linkNames = {'utorso','lclav'};
+    UTorsoLArm(i).name = qNames(i);
+    for j = 1:length(Joint)
+        if Joint(j) == UTorsoLArm(i).name
+            d = j;
+            UTorsoLArm(i).m = M(d);
+            UTorsoLArm(i).ixx = ixx(d);
+            UTorsoLArm(i).ixy = ixy(d);
+            UTorsoLArm(i).ixz = ixz(d);
+            UTorsoLArm(i).iyy = iyy(d);
+            UTorsoLArm(i).iyz = iyz(d);
+            UTorsoLArm(i).izz = izz(d);
+        else
+            display('No name found!');
+        end
+    end
 end
 
 % Geometries
