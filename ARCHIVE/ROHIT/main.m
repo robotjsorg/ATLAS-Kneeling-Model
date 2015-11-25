@@ -4,12 +4,16 @@
 % pushes the hip joints above instead of below. I'm going to work on
 % symbolic functions from pelvis and then to derive jacobians and take a
 % break from this.
-
+%
 Init_joints = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
 Final_joints = [0,-90,90,0,0,0,0,0,0,90,-90,0,0,0,0,0,90,0,-90,0]*pi/180 ;
 
+<<<<<<< HEAD
+Curr_joints = Init_joints ;
+=======
 %Curr_joints = Init_joints ;
 Curr_joints = Final_joints ;
+>>>>>>> master
 
 [Tleft_frame,Tleft_frame_larm,Tleft_frame_rarm] = getjoint(Curr_joints) ;
 for i=1:15
@@ -33,8 +37,12 @@ end
 loc_t = horzcat(loc,loc_left,loc_right) ;
 
 figure()
-scatter3(loc_t(1,:) ,loc_t(2,:), loc_t(3,:), 'filled' ) ;
+scatter3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:), 'filled' ) ;
 hold on 
+<<<<<<< HEAD
+plot3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:)) ;
+axis equal
+=======
 plot3(loc_t(1,:) ,loc_t(2,:), loc_t(3,:)) ;
 axis equal
 
@@ -43,3 +51,4 @@ axis equal
 %hold on 
 %plot3(loc_t(3,:)-0.862 ,-loc_t(2,:)+ 0.115, loc_t(1,:)) ;
 %axis equal
+>>>>>>> master
