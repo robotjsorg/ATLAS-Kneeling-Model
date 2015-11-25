@@ -1,6 +1,6 @@
 global LFootRFoot;
-global PelvisLArm;
 global PelvisRArm;
+global UTorsoLArm;
 
 % Joint Names
 Joint = {'pelvis';'ltorso';'mtorso';'utorso';'lclav';'lscap';'luarm';'llarm';'lufarm';'llfarm';'lhand';'head';'hokuyolink';'rclav';'rscap';'ruarm';'rlarm';'rufarm';'rlfarm';'rhand';'luglut';'llglut';'luleg';'llleg';'ltalus';'lfoot';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot'};
@@ -45,13 +45,14 @@ izz = [0.117936,0.00174492,0.000444215,0.577362,0.004,0.00583,0.00656,...
     0.02,0.01,1.30101*10^(-5),0.008];
 
 % Which q is which?
-qNames = {'lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot','ltorso','mtorso','utorso','rclav','utorso','lclav'};
+qNames = ['lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot','ltorso','mtorso','utorso','rclav','utorso','lclav'];
 
 for i = 1:length(LFootRFoot)
-    linkNames = {'lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot'};   
-    LFootRFoot(i).name = qNames(i);
+    linkNames = ['lfoot','ltalus','llleg','luleg','llglut','luglut','pelvis','ruglut','rlglut','ruleg','rlleg','rtalus','rfoot'];   
+    LFootRFoot(i).name = linkNames(i);
+    Joint(1)
     for j = 1:length(Joint)
-        if Joint(j) == LFootRFoot(i).name
+        if LFootRFoot(i).name == 'pelvis'
             d = j;
             LFootRFoot(i).m = M(d);
             LFootRFoot(i).ixx = ixx(d);
@@ -67,8 +68,8 @@ for i = 1:length(LFootRFoot)
 end
 
 for i = 1:length(PelvisRArm)
-    linkNames = {'pelvis','ltorso','mtorso','utorso','rclav'};
-    PelvisRArm(i).name = qNames(i);
+    linkNames = ['pelvis','ltorso','mtorso','utorso','rclav'];
+    PelvisRArm(i).name = linkNames(i);
     for j = 1:length(Joint)
         if Joint(j) == PelvisRArm(i).name
             d = j;
@@ -86,8 +87,8 @@ for i = 1:length(PelvisRArm)
 end
 
 for i = 1:length(UTorsoLArm)
-    linkNames = {'utorso','lclav'};
-    UTorsoLArm(i).name = qNames(i);
+    linkNames = ['utorso','lclav'];
+    UTorsoLArm(i).name = linkNames(i);
     for j = 1:length(Joint)
         if Joint(j) == UTorsoLArm(i).name
             d = j;

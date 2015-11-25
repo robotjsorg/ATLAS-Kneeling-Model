@@ -1,14 +1,13 @@
-currentFolder = pwd;
-addpath(currentFolder + '\Kinematics');
-addpath(currentFolder + '\Dynamics');
+addpath('R:\ATLAS Kneeling Model\MATLAB\Kinematics');
+addpath('R:\ATLAS Kneeling Model\MATLAB\Dynamics');
 
 global q;
 global LFootRFoot;
-global PelvisLArm;
 global PelvisRArm;
+global UTorsoLArm;
 
 run('q1.m');
-run('Data.m');
+% run('Data.m');
 
 LFootRFoot = struct;
 PelvisRArm = struct;

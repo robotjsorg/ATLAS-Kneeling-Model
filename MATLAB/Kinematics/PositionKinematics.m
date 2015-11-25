@@ -1,4 +1,5 @@
 function[] = PositionKinematics( q )
+    global q;
     global LFootRFoot;
     global PelvisRArm;
     global UTorsoLArm;
@@ -40,8 +41,7 @@ function[] = PositionKinematics( q )
     
     % LFootRFoot
 
-    numberOfJoints = length(d);
-    for i = 1:numberOfJoints
+    for i = 1:length(d)
         LFootRFoot(i).step = DH([d(i);theta(i);a(i);alpha(i)]);
         if i == 1
             LFootRFoot(i).base = LFootRFoot(i).step;
@@ -66,15 +66,14 @@ function[] = PositionKinematics( q )
     
     % PelvisRArm
 
-    numberOfJoints = length(dr);
-    for i = 1:numberOfJoints
+    for i = 1:length(dr)
         PelvisRArm(i).step = DH([dr(i);thetar(i);ar(i);alphar(i)]);
         if i == 1
             PelvisRArm(i).base = pT*iT*PelvisRArm(i).step;
         else
             PelvisRArm(i).base = PelvisRArm(i-1).base*PelvisRArm(i).step;  
         end
-        if i == 5
+        if i == 1
             rT = PelvisRArm(i).base;
         end
     end
@@ -83,8 +82,7 @@ function[] = PositionKinematics( q )
 
     % UTorso to LArm
 
-    numberOfJoints = length(dl);
-    for i = 1:numberOfJoints
+    for i = 1:length(dl)
         UTorsoLArm(i).step = DH([dl(i);thetal(i);al(i);alphal(i)]);
         if i == 1
             UTorsoLArm(i).base = rT*UTorsoLArm(i).step;
