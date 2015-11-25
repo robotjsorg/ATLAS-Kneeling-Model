@@ -1,5 +1,6 @@
-addpath('R:\ATLAS-Kneeling-Model\MATLAB\Kinematics');
-addpath('R:\ATLAS-Kneeling-Model\MATLAB\Dynamics');
+currentFolder = pwd;
+addpath(currentFolder + '\Kinematics');
+addpath(currentFolder + '\Dynamics');
 
 global q;
 global LFootRFoot;
