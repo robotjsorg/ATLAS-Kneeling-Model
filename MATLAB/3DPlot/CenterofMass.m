@@ -1,12 +1,12 @@
-function [ mass_center ] = Center_of_Mass( Leg_Transforms,Rarm_Transforms,Larm_Transforms )
+function [ masscenter ] = CenterofMass( LegTransforms,RarmTransforms,LarmTransforms )
 
 MASS=[9.609,2.27,0.799,84.609,4.466,3.899,4.386,3.248,2.4798,0.648,2.6439,...
     1.41991,0.057664,4.466,3.899,4.386,3.248,2.4798,0.648,2.6439,1.959,...
     0.898,8.204,4.515,0.125,2.41,1.959,0.898,8.204,4.515,0.125,2.41];
 
-total_Mass = sum(MASS);
+totalMass = sum(MASS);
 n = length(MASS);
-Points_center_mass = zeros(n,3);
+Pointscentermass = zeros(n,3);
 
 %Define the transforms to pull from the three input sets of transforms
 NTrans = zeros(1,n);
@@ -18,11 +18,11 @@ NTrans(21:32) = [4,3,2,1,1,1,7,9,11,12,15,15];
 
 for i = 1:n
     if i <= 11
-        Transform{i} = Larm_Transform{Ntrans(i)};
+        Transform{i} = LarmTransform{Ntrans(i)};
     elseif i <= 20
-        Transform{i} = Rarm_Tranform{Ntrans(i)};
+        Transform{i} = RarmTranform{Ntrans(i)};
     elseif i >20
-        Transform{i} = Leg_Transform{Ntrans(i)};
+        Transform{i} = LegTransform{Ntrans(i)};
     end
 end
 
@@ -62,13 +62,13 @@ Positions = [0,0,0; %pelvis
     %Calculate the points of mass based on the current orientation of the
     %ATLAS Robot
     for i = 1:n
-        Points_center_mass(n,3) = Transforms{n}*Positions(n,3)';
+        Pointscentermass(n,3) = Transforms{n}*Positions(n,3)';
     end
     
-    mass_center = zeros(1,3);
+    masscenter = zeros(1,3);
     for i = 1:n
-        mass_center = Points_center_mass(n,3)*MASS(n)/total_Mass + mass_center;
+        masscenter = Pointscentermass(n,3)*MASS(n)/totalMass + masscenter;
     end
         
-	return mass_center;
+	return masscenter;
 end
