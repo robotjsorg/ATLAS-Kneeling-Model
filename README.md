@@ -4,7 +4,7 @@
 | ------------- | ------------- | ------------- |
 | 1. | Kinematics  | |
 | 2. | 3D Plot| |
-| 3. | Output q Matrix  | |
-| 4. | Dynamics | |
+| 3. | Dynamics | |
+| 4. | Output q Matrix  | |
 | 5. | |  Convert q Matrix |
 | 6. | |  DRC Sim |
