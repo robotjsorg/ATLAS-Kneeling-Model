@@ -1,6 +1,8 @@
 addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Kinematics');
 % addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Dynamics');
 
+% Make sure you check your local address of file on addpath
+
 global q ;
 global LFootRFoot;
 global PelvisTorso;

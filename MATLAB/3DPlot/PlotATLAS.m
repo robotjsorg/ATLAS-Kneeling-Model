@@ -17,7 +17,7 @@ function[] = PlotATLAS()
     set( gca, 'ylim', axisLimits );
     set( gca, 'zlim', axisLimits );
 
-    numberOfJoints = length(points(1,:))-2;
+    numberOfJoints = length(points(1,:));
     for i = 1:numberOfJoints
         sliderPos = [.6*figPos(3) i*20+.1*figPos(4) 250 20];
         textPos =   [.9*figPos(3) i*20+.1*figPos(4) 50 20];

@@ -48,17 +48,26 @@ function[] = PositionKinematics()
     %%%%%%%%%%
     
     % LFootRFoot
-
+    j = 1;
     for i = 1:length(d)
-        LFootRFoot(i).step = DH([d(i);theta(i);a(i);alpha(i)]);
-        if i == 1
-            LFootRFoot(i).base = LFootRFoot(i).step;
-        else
-            LFootRFoot(i).base = LFootRFoot(i-1).base*LFootRFoot(i).step;  
-        end
+      if i == 1
+            LFootRFoot(j).step = DH([d(i);theta(i);a(i);alpha(i)]);
+            LFootRFoot(j).base = LFootRFoot(j).step;
+      elseif ((i == 5) || (i == 10))
+            temp = DH([d(i);theta(i);a(i);alpha(i)]);
+            i=i+1 ;
+            LFootRFoot(j).step = temp*DH([d(i);theta(i);a(i);alpha(i)]);
+            LFootRFoot(j).base = LFootRFoot(j-1).base*LFootRFoot(j).step; 
+            j=j-1;
+      elseif((i~=6)&&(i~=11))
+            LFootRFoot(j).step = DH([d(i);theta(i);a(i);alpha(i)]);        
+            LFootRFoot(j).base = LFootRFoot(j-1).base*LFootRFoot(j).step; 
+      end
+        
         if i == 7
-            pT = LFootRFoot(i).base;
+            pT = LFootRFoot(j).base;
         end
+        j=j+1 ;
     end
 
     %%%%%%%%%%
