@@ -1,8 +1,10 @@
-function[] = PositionKinematics( q )
-    global q;
+function[] = PositionKinematics()
+   
+    global q ;
     global LFootRFoot;
-    global PelvisRArm;
-    global UTorsoLArm;
+    global PelvisTorso;
+    global TorsoLArm;
+    global TorsoRArm;
 
     % DH constants
     d1 = .4220;
@@ -25,56 +27,68 @@ function[] = PositionKinematics( q )
     a     = [0,d1,d2,d4,0,0,-d5,-d5,0,-d7,0,-d8,-d1,0,0];
     alpha = [pi/2,0,0,0,-pi/2,-pi/2,0,0,pi/2,0,pi/2,0,0,-pi/2,0];
     
-    % Pelvis to RArm
-    dr     = [0.1620,0,0.1406,0,-0.2450,0];
-    thetar = [q(14),pi/2+q(15),q(16),pi/2,q(17),q(18)];
-    ar     = [-0.0125,0,-0.5276,-0.2256,-0.1100,-0.6058];
-    alphar = [-pi/2,pi/2,0,-pi/2,pi/2,0];
-
+    % Torso
+    dt     = [0.1620,0,0.1406,];
+    thetat = [q(14),pi/2+q(15),q(16)];
+    at     = [-0.0125,0,-0.5276,];
+    alphat = [-pi/2,pi/2,0];
+    
+    % UTorso to RArm
+    dr     = [0,-0.245,0];
+    thetar = [pi/2,q(17),q(18)];
+    ar     = [-0.2256,-0.11,-0.605762];
+    alphar = [-pi/2,pi/2,0]; 
+    
     % UTorso to LArm
-    dl     = [-0.2450,0];
-    thetal = [q(19),q(20)+pi];
-    al     = [0.11,-0.6058];
-    alphal = [pi/2,0];
+    dl     = [0,-0.245,0];
+    thetal = [pi/2,q(19),q(20)+pi];
+    al     = [0.2256,0.11,-0.605762];
+    alphal = [-pi/2,pi/2,0]; 
 
     %%%%%%%%%%
     
     % LFootRFoot
-
+    j = 1;
     for i = 1:length(d)
-        LFootRFoot(i).step = DH([d(i);theta(i);a(i);alpha(i)]);
-        if i == 1
-            LFootRFoot(i).base = LFootRFoot(i).step;
-        else
-            LFootRFoot(i).base = LFootRFoot(i-1).base*LFootRFoot(i).step;  
-        end
+      if i == 1
+            LFootRFoot(j).step = DH([d(i);theta(i);a(i);alpha(i)]);
+            LFootRFoot(j).base = LFootRFoot(j).step;
+      elseif ((i == 5) || (i == 10))
+            temp = DH([d(i);theta(i);a(i);alpha(i)]);
+            i=i+1 ;
+            LFootRFoot(j).step = temp*DH([d(i);theta(i);a(i);alpha(i)]);
+            LFootRFoot(j).base = LFootRFoot(j-1).base*LFootRFoot(j).step; 
+            j=j-1;
+      elseif((i~=6)&&(i~=11))
+            LFootRFoot(j).step = DH([d(i);theta(i);a(i);alpha(i)]);        
+            LFootRFoot(j).base = LFootRFoot(j-1).base*LFootRFoot(j).step; 
+      end
+        
         if i == 7
-            pT = LFootRFoot(i).base;
+            pT = LFootRFoot(j).base;
         end
+        j=j+1 ;
     end
 
     %%%%%%%%%%
     
-    % Pelvis to LTorso
-    iRz     = [cosd(90) -sind(90) 0 0; sind(90) cosd(90) 0 0; 0 0 1 0; 0 0 0 1];
-    iTz     = eye(4,4);
-    iTx     = eye(4,4); 
-    iRx     = [1 0 0 0; 0 cosd(0) -sind(0) 0; 0 sind(0) cosd(0) 0;0 0 0 1];
+    % Pelvis inter transform
+    iRz = [cosd(90) -sind(90) 0 0; sind(90) cosd(90) 0 0; 0 0 1 0; 0 0 0 1] ;
+    iTz = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ;
+    iTx = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1] ; 
+    iRx = [1 0 0 0; 0 cosd(0) -sind(0) 0; 0 sind(0) cosd(0) 0;0 0 0 1];
     iT = iRz*iTz*iTx*iRx;
 
     %%%%%%%%%%
     
-    % PelvisRArm
+    % PelvisTorso
 
-    for i = 1:length(dr)
-        PelvisRArm(i).step = DH([dr(i);thetar(i);ar(i);alphar(i)]);
+    for i = 1:length(dt)
+        PelvisTorso(i).step = DH([dt(i);thetat(i);at(i);alphat(i)]);
         if i == 1
-            PelvisRArm(i).base = pT*iT*PelvisRArm(i).step;
+            PelvisTorso(i).base = pT*iT*PelvisTorso(i).step;
         else
-            PelvisRArm(i).base = PelvisRArm(i-1).base*PelvisRArm(i).step;  
-        end
-        if i == 1
-            rT = PelvisRArm(i).base;
+            PelvisTorso(i).base = PelvisTorso(i-1).base*PelvisTorso(i).step;  
         end
     end
 
@@ -83,13 +97,31 @@ function[] = PositionKinematics( q )
     % UTorso to LArm
 
     for i = 1:length(dl)
-        UTorsoLArm(i).step = DH([dl(i);thetal(i);al(i);alphal(i)]);
         if i == 1
-            UTorsoLArm(i).base = rT*UTorsoLArm(i).step;
+            InterLArm = PelvisTorso(3).base*DH([dl(i);thetal(i);al(i);alphal(i)]);
+        elseif i == 2
+            TorsoLArm(i-1).step = InterLArm*DH([dr(i);thetar(i);ar(i);alphar(i)]);
+            TorsoLArm(i-1).base = TorsoLArm(i-1).step;  
         else
-            UTorsoLArm(i).base = UTorsoLArm(i-1).base*UTorsoLArm(i).step;  
+            TorsoLArm(i-1).step = DH([dl(i);thetal(i);al(i);alphal(i)]);
+            TorsoLArm(i-1).base = TorsoLArm(i-2).base*TorsoLArm(i-1).step;  
         end
     end
+
+    % UTorso to RArm
+
+    for i = 1:length(dr)
+        if i == 1
+            InterRArm = PelvisTorso(3).base*DH([dr(i);thetar(i);ar(i);alphar(i)]);
+        elseif i == 2
+            TorsoRArm(i-1).step = InterRArm*DH([dr(i);thetar(i);ar(i);alphar(i)]);
+            TorsoRArm(i-1).base = TorsoRArm(i-1).step;  
+        else
+            TorsoRArm(i-1).step = DH([dr(i);thetar(i);ar(i);alphar(i)]);
+            TorsoRArm(i-1).base = TorsoRArm(i-2).base*TorsoRArm(i-1).step;  
+        end
+    end
+    
 end
     
 %%%%%%%%%%
