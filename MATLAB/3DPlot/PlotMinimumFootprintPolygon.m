@@ -1,0 +1,3 @@
+function[] = PlotMinimumFootprintPolygon()
+    
+end

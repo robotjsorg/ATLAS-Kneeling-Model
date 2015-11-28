@@ -1,1 +1,0 @@
-double q_matrix[] {};
