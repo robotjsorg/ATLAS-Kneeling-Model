@@ -1,5 +1,4 @@
 function[] = Positions()
-    global q ;
     global LFootRFoot;
     global PelvisTorso;
     global TorsoLArm;
