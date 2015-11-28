@@ -13,7 +13,7 @@ function[] = PlotATLAS()
     plotPos = [.1 .1 .4 .8];
     set( gca, 'position', plotPos );
 
-    xlim([-1 2]); ylim([-1 2]); zlim([-1 2]);
+    xlim([-2 2]); ylim([-2 2]); zlim([-2 2]);
     xlabel('X'); ylabel('Y'); zlabel('Z');
     grid on;
 

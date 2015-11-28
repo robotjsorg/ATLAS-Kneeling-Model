@@ -53,10 +53,8 @@ function[] = PositionKinematics()
         LFootRFoot(i).step = DH([d(i);theta(i);a(i);alpha(i)]);
         if i == 1
             LFootRFoot(i).base = LFootRFoot(i).step;
-        elseif ((i == 5) || (i == 10))
-            LFootRFoot(i).base = LFootRFoot(i-1).base*LFootRFoot(i).step; 
         else
-            LFootRFoot(i).base = LFootRFoot(i-1).base*LFootRFoot(i).step; 
+            LFootRFoot(i).base = LFootRFoot(i-1).base*LFootRFoot(i).step;
         end
         if i == 7
             pT = LFootRFoot(i).base;
@@ -84,7 +82,7 @@ function[] = PositionKinematics()
             PelvisTorso(i).base = PelvisTorso(i-1).base*PelvisTorso(i).step;  
         end
         if i == 3
-           pT = PelvisTorso(i).base; 
+           tT = PelvisTorso(i).base; 
         end
     end
 
@@ -93,9 +91,9 @@ function[] = PositionKinematics()
     % UTorso to LArm
 
     for i = 1:length(dl)
-        TorsoLArm(i).step = pT*DH([dl(i);thetal(i);al(i);alphal(i)]);
+        TorsoLArm(i).step = DH([dl(i);thetal(i);al(i);alphal(i)]);
         if i == 1
-            TorsoLArm(i).base = TorsoLArm(i).step;
+            TorsoLArm(i).base = tT*TorsoLArm(i).step;
         else
             TorsoLArm(i).base = TorsoLArm(i-1).base*TorsoLArm(i).step;
         end
@@ -104,14 +102,19 @@ function[] = PositionKinematics()
     % UTorso to RArm
 
     for i = 1:length(dr)
-        TorsoRArm(i).step = pT*DH([dr(i);thetar(i);ar(i);alphar(i)]);
+        TorsoRArm(i).step = DH([dr(i);thetar(i);ar(i);alphar(i)]);
         if i == 1
-            TorsoRArm(i).base = TorsoRArm(i).step;
+            TorsoRArm(i).base = tT*TorsoRArm(i).step;
         else
             TorsoRArm(i).base = TorsoRArm(i-1).base*TorsoRArm(i).step;
         end
     end
     
+    % Delete the rows without a joint angle variable
+    LFootRFoot(5) = [];
+    LFootRFoot(10) = [];
+    TorsoLArm(1) = [];
+    TorsoRArm(1) = [];
 end
     
 %%%%%%%%%%
