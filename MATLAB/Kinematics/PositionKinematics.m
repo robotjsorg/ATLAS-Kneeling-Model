@@ -110,7 +110,7 @@ function[] = PositionKinematics()
         end
     end
     
-    % Delete the rows without a joint angle variable
+    % Delete extra rows
     LFootRFoot(5) = [];
     LFootRFoot(10) = [];
     TorsoLArm(1) = [];
