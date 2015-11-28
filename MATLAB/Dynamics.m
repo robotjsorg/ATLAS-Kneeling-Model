@@ -1,8 +1,10 @@
 addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Kinematics');
+addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\CoM');
 % addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Dynamics');
 
 % Make sure you check your local address of file on addpath
 
+global COM ;
 global q ;
 global LFootRFoot;
 global PelvisTorso;
@@ -14,7 +16,8 @@ run('q1.m');
 TimeIncrement = 1;
 
 PositionKinematics();
-Positions;
+Positions();
+CoM();
 % LinkCentersofMasses();
 % AngularVelocities();
 % AngularAccelerations();
