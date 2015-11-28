@@ -1,23 +1,24 @@
-currentFolder = pwd;
-addpath(currentFolder + '\Kinematics');
-addpath(currentFolder + '\3DPlot');
+addpath('R:\MATLAB\Kinematics');
+addpath('R:\MATLAB\3DPlot');
 
 global q;
 global LFootRFoot;
-global PelvisLArm;
-global PelvisRArm;
+global PelvisTorso;
+global TorsoLArm;
+global TorsoRArm;
 
 run('q1.m');
 run('Data.m');
 
 LFootRFoot = struct;
-PelvisRArm = struct;
-UTorsoLArm = struct;
+PelvisTorso = struct;
+TorsoLArm = struct;
+TorsoRArm = struct;
 
-PositionKinematics( q );
+PositionKinematics();
 Positions();
 LinkCentersofMasses();
 
 PlotATLAS();
-PlotCenterOfMass();
+PlotCenterofMass();
 PlotMinimumFootprintPolygon();

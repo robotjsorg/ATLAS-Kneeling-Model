@@ -1,6 +1,6 @@
 function[] = PositionKinematics()
    
-    global q ;
+    global q;
     global LFootRFoot;
     global PelvisTorso;
     global TorsoLArm;
