@@ -5,7 +5,7 @@ function[] = Positions()
     global TorsoRArm;
     
     for i = 1:length(LFootRFoot)
-        LFootRFoot(i).position = LFootRFoot(i).base(1:3,4) ;%- LFootRFoot(7).base(1:3,4);
+        LFootRFoot(i).position = LFootRFoot(i).base(1:3,4) - LFootRFoot(7).base(1:3,4);
     end
 
     for i = 1:length(PelvisTorso)
