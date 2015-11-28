@@ -8,7 +8,7 @@ global TorsoLArm;
 global TorsoRArm;
 
 run('q1.m');
-run('Data.m');
+% run('Data.m');
 
 LFootRFoot = struct;
 PelvisTorso = struct;
