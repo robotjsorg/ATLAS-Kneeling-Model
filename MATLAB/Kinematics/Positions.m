@@ -1,20 +1,22 @@
 function[] = Positions()
     global LFootRFoot;
-    global PelvisRArm;
-    global UTorsoLArm;
-
-    numberOfJoints = length(LFootRFoot);
-    for i = 1:numberOfJoints
-        LFootRFoot(i).position = LFootRFoot(i).base(1:3,4);
+    global PelvisTorso;
+    global TorsoLArm;
+    global TorsoRArm;
+    
+    for i = 1:length(LFootRFoot)
+        LFootRFoot(i).position = LFootRFoot(i).base(1:3,4) - LFootRFoot(6).base(1:3,4);
     end
 
-    numberOfJoints = length(PelvisRArm);
-    for i = 1:numberOfJoints
-        PelvisRArm(i).position = PelvisRArm(i).base(1:3,4);
+    for i = 1:length(PelvisTorso)
+        PelvisTorso(i).position = PelvisTorso(i).base(1:3,4) - LFootRFoot(6).base(1:3,4);
     end
 
-    numberOfJoints = length(UTorsoLArm);
-    for i = 1:numberOfJoints
-        UTorsoLArm(i).position = UTorsoLArm(i).base(1:3,4);
+    for i = 1:length(TorsoLArm)
+        TorsoLArm(i).position = TorsoLArm(i).base(1:3,4) - LFootRFoot(6).base(1:3,4);
+    end
+    
+    for i = 1:length(TorsoRArm)
+        TorsoRArm(i).position = TorsoRArm(i).base(1:3,4) - LFootRFoot(6).base(1:3,4);
     end
 end
