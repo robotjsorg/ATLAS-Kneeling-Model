@@ -1,27 +1,28 @@
-addpath('R:\ATLAS Kneeling Model\MATLAB\Kinematics');
-addpath('R:\ATLAS Kneeling Model\MATLAB\Dynamics');
+addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Kinematics');
+addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\CoM');
+% addpath('R:\Atlas\ATLAS-Kneeling-Model\MATLAB\Dynamics');
 
-global q;
+% Make sure you check your local address of file on addpath
+
+global COM ;
+global q ;
 global LFootRFoot;
-global PelvisRArm;
-global UTorsoLArm;
+global PelvisTorso;
+global TorsoLArm;
+global TorsoRArm;
 
 run('q1.m');
 % run('Data.m');
-
-LFootRFoot = struct;
-PelvisRArm = struct;
-UTorsoLArm = struct;
-
 TimeIncrement = 1;
 
-PositionKinematics( q );
-Positions;
-LinkCentersofMasses();
-AngularVelocities();
-AngularAccelerations();
-ForwardRecursion();
-Radii();
-BackwardRecursion();
-Torques();
-Pressure();
+PositionKinematics();
+Positions();
+CoM();
+% LinkCentersofMasses();
+% AngularVelocities();
+% AngularAccelerations();
+% ForwardRecursion();
+% Radii();
+% BackwardRecursion();
+% Torques();
+% Pressure();

@@ -3,8 +3,8 @@
 | Step | MATLAB| C++ |
 | ------------- | ------------- | ------------- |
 | 1. | Kinematics  | |
-| 2. | Output q Matrix  | |
+| 2. | 3D Plot| |
 | 3. | Dynamics | |
-| 3. | |  Convert q Matrix |
-| 4. | |  DRC Sim |
-| 5. | 3D Plot| |
+| 4. | Motion Planning  | |
+| 5. | |  Convert q Matrix |
+| 6. | |  DRC Sim |
