@@ -8,14 +8,14 @@ function[] = PlotATLAS()
     points = updatePoints();
 
     Atlasfig = figure;
-    plot1.output = line( points(3,1:13), -points(2,1:13), points(1,1:13), 'LineWidth', 2 );
-    plot2.output = line( points(3,[6,14:16]), -points(2,[6,14:16]), points(1,[6,14:16]), 'LineWidth', 2 );
-    plot3.output = line( points(3,16:18), -points(2,16:18), points(1,16:18), 'LineWidth', 2 );
-    plot4.output = line( points(3,[16,19:20]), -points(2,[16,19:20]), points(1,[16,19:20]), 'LineWidth', 2 );
-    set(plot1.output, 'Marker', 'o');
-    set(plot2.output, 'Marker', 'o');
-    set(plot3.output, 'Marker', 'o');
-    set(plot4.output, 'Marker', 'o');
+    plot1.output = line( points( 1, 1:13 ),       points( 2, 1:13 ),       points( 3,1:13 ),       'LineWidth', 2 );
+    plot2.output = line( points( 1, [6,14:16] ),  points( 2, [6,14:16] ),  points( 3,[6,14:16] ),  'LineWidth', 2 );
+    plot3.output = line( points( 1, 16:18 ),      points( 2, 16:18 ),      points( 3,16:18 ),      'LineWidth', 2 );
+    plot4.output = line( points( 1, [16,19:20] ), points( 2, [16,19:20] ), points( 3,[16,19:20] ), 'LineWidth', 2 );
+    set( plot1.output, 'Marker', 'o' );
+    set( plot2.output, 'Marker', 'o' );
+    set( plot3.output, 'Marker', 'o' );
+    set( plot4.output, 'Marker', 'o' );
 
     figPos = [ 0.0 0.0 1000.0 500.0 ];
     set( Atlasfig, 'position', figPos );
@@ -23,10 +23,10 @@ function[] = PlotATLAS()
     plotPos = [ 0.1 0.1 0.4 0.8 ];
     set( gca, 'position', plotPos );
 
-    xlim([-1.5 1.5]); ylim([-1.5 1.5]); zlim([-1.5 1.5]);
+    xlim( [-1.5 1.5] ); ylim( [-1.5 1.5] ); zlim( [-1.5 1.5] );
     xlabel('X'); ylabel('Y'); zlabel('Z');
     grid on;
-    view([4,-4,2]);
+    view( [4,4,4] );
     
     min = [ -25 -52 0   -30 -92 -45 -38 -45 -92 -30  0   -52 -25 -38 -30 -12 -45 -90 -45 -90 ];
     max = [  25  28 135  30  37  10  38  10  37  30  135  28  25  38  30  30  90  90  90  90 ];
@@ -54,27 +54,36 @@ function[] = updatePlot( i, text, eventName )
     global plot3;
     global plot4;
 
+    % Update q.
     newq = get( eventName, 'Value' );
-    q(i) = newq*pi/180;
+    q( i ) = newq * pi / 180;
 
+    % Update the data.
     PositionKinematics();
     Positions();
 
+    % Update the points.
     points = updatePoints();
 
-    set(text,'string',num2str(newq));
-    set(plot1.output,'xdata',points(3,1:13));
-    set(plot1.output,'ydata',-points(2,1:13));
-    set(plot1.output,'zdata',points(1,1:13));
-    set(plot2.output,'xdata',points(3,[6,14:16]));
-    set(plot2.output,'ydata',-points(2,[6,14:16]));
-    set(plot2.output,'zdata',points(1,[6,14:16]));
-    set(plot3.output,'xdata',points(3,16:18));
-    set(plot3.output,'ydata',-points(2,16:18));
-    set(plot3.output,'zdata',points(1,16:18));
-    set(plot4.output,'xdata',points(3,[16,19:20]));
-    set(plot4.output,'ydata',-points(2,[16,19:20]));
-    set(plot4.output,'zdata',points(1,[16,19:20]));
+    % Update the plot.
+    set( text,         'string', num2str( newq )         );
+
+    set( plot1.output, 'xdata',  points( 1, 1:13 )       );
+    set( plot1.output, 'ydata',  points( 2, 1:13 )       );
+    set( plot1.output, 'zdata',  points( 3, 1:13 )       );
+
+    set( plot2.output, 'xdata',  points( 1, [6,14:16] )  );
+    set( plot2.output, 'ydata',  points( 2, [6,14:16] )  );
+    set( plot2.output, 'zdata',  points( 3, [6,14:16] )  );
+
+    set( plot3.output, 'xdata',  points( 1, 16:18 )      );
+    set( plot3.output, 'ydata',  points( 2, 16:18 )      );
+    set( plot3.output, 'zdata',  points( 3, 16:18 )      );
+
+    set( plot4.output, 'xdata',  points( 1, [16,19:20] ) );
+    set( plot4.output, 'ydata',  points( 2, [16,19:20] ) );
+    set( plot4.output, 'zdata',  points( 3, [16,19:20] ) );
+
     drawnow;
 end
 
@@ -85,14 +94,14 @@ function[ points ] = updatePoints()
     global TorsoLArm;
     global TorsoRArm;
 
-    numberOfJoints = length(LFootRFoot);
-    points1 = zeros(3, numberOfJoints);
+    numberOfJoints = length( LFootRFoot );
+    points1 = zeros( 3, numberOfJoints );
     for i = 1:numberOfJoints
         points1(:,i) = LFootRFoot(i).position;
     end
     
-    numberOfJoints = length(PelvisTorso);
-    points2 = zeros(3, numberOfJoints);
+    numberOfJoints = length( PelvisTorso );
+    points2 = zeros( 3, numberOfJoints );
     for i = 1:numberOfJoints
         points2(:,i) = PelvisTorso(i).position;
     end
