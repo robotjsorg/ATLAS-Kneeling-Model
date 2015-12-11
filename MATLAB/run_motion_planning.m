@@ -1,11 +1,10 @@
 clc; clear all; close all;
-
-addpath('R:/MATLAB/MotionPlanning');
+addpath(genpath('R:/MATLAB'));
 
 global q;
-global data;
-
 run('q1.m');
+q1 = q;
+
 
 TimeStep = 1;
 MotionPlanning( TimeStep );

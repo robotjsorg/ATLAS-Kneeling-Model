@@ -1,9 +1,9 @@
 clc; clear all; close all;
-
-addpath('R:/MATLAB/Plot');
+addpath(genpath('R:/MATLAB'));
 
 global q;
-
 run('q1.m');
+
+global data;
 
 Plot();

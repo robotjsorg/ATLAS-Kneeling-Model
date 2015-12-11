@@ -1,15 +1,11 @@
 clc; clear all; close all;
+addpath(genpath('R:/MATLAB'));
 
-addpath('R:/MATLAB/Kinematics');
+global data LFootRFoot PelvisTorso TorsoLArm TorsoRArm;
 
-global C;
 global q;
-global data;
-global LFootRFoot;
-global PelvisTorso;
-global TorsoLArm;
-global TorsoRArm;
-
 run('q1.m');
 
 Kinematics();
+
+openvar('data');

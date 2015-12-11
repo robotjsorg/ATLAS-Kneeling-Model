@@ -1,10 +1,7 @@
 clc; clear all; close all;
-
-addpath('R:/MATLAB/Dynamics');
+addpath(genpath('R:/MATLAB'));
 
 global q;
-global data;
-
 run('q1.m');
 
 TimeStep = 1;

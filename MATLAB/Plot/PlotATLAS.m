@@ -8,9 +8,12 @@ function[] = PlotATLAS()
 
     % Set up.
     figure;
-    set(gcf,'Renderer','zbuffer');
-
-    figPos = [ 0.0 0.0 1200.0 600.0 ];
+    hold on;
+    set( gcf, 'Renderer', 'zbuffer' );
+    
+    scr = get(0,'ScreenSize');
+    
+    figPos = [ 0.0 0.0 scr(3) scr(4)];
     set( gcf, 'position', figPos );
 
     plotPos = [ 0.1 0.1 0.4 0.8 ];
@@ -21,6 +24,31 @@ function[] = PlotATLAS()
     grid on;
     view( [1,1,1] );
 
+    % Plot CoM
+    scatter3( [LFootRFoot.ComPosX], ...
+              [LFootRFoot.ComPosY], ...
+              [LFootRFoot.ComPosZ], ...
+              'red', 'filled', ...
+              'Tag', 'LFootRFoot' );
+          
+    scatter3( [PelvisTorso.ComPosX], ...
+              [PelvisTorso.ComPosY], ...
+              [PelvisTorso.ComPosZ], ...
+              'red', 'filled', ...
+              'Tag', 'PelvisTorso' );          
+          
+    scatter3( [TorsoLArm.ComPosX], ...
+              [TorsoLArm.ComPosY], ...
+              [TorsoLArm.ComPosZ], ...
+              'red', 'filled', ...
+              'Tag', 'TorsoLArm' );
+          
+    scatter3( [TorsoRArm.ComPosX], ...
+              [TorsoRArm.ComPosY], ...
+              [TorsoRArm.ComPosZ], ...
+              'red', 'filled', ...
+              'Tag', 'TorsoRArm' );
+    
     % Plot 2D.
     line( [LFootRFoot.X], ...
           [LFootRFoot.Y], ...
@@ -52,23 +80,28 @@ function[] = PlotATLAS()
           'Tag',       'TorsoRArm' );
 
     % Plot 3D.
-%     for i = 1:length( data )
-%         if data(i).position
-%             fv = stlread( strcat( data(i).name, '.stl' ) );
-%             fv.vertices = bsxfun( @plus, transpose( data(i).position ), fv.vertices );
-%             patch( 'Faces',           [fv.faces], ...
-%                    'Vertices',        [fv.vertices], ...
-%                    'FaceColor',       [0.5 0.5 0.5], ...
-%                    'EdgeColor',       [0.5 0.5 0.5], ...
-%                    'FaceLighting',    'gouraud', ...
-%                    'AmbientStrength', 0.15, ...
-%                    'Parent',          gca, ...
-%                    'Tag',             data(i).name );
-%         end
-%     end
+    
+    for i = 1:length( data )
+        if ~isempty( data(i).ComPos )
+            F = getfield( data(i), 'F' );
+            V = getfield( data(i), 'V' );
+            V = loadstl( i );
+            patch( 'Faces',           [F], ...
+                   'Vertices',        [V], ...
+                   'FaceColor',       [0.5 0.5 0.5], ...
+                   'EdgeColor',       [0.5 0.5 0.5], ...
+                   'FaceLighting',    'gouraud', ...
+                   'AmbientStrength', 0.15, ...
+                   'Parent',          gca, ...
+                   'Tag',             data(i).name );
+        end
+    end
+
+    % Light.
+    light( 'Position', [ 3 3 3 ], 'Style', 'local' );
 
     % Joint limits.
-    nm    = {'lfoot';'ltalus';'llleg';'luleg';'llglut';'luglut';'pelvis';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot';'ltorso';'mtorso';'utorso';'lclav';'lscap';'rclav';'rscap'};
+    nm  = {'lfoot';'ltalus';'llleg';'luleg';'llglut';'luglut';'pelvis';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot';'ltorso';'mtorso';'utorso';'lclav';'lscap';'rclav';'rscap'};
     min = [ -25 -52 0   -30 -92 -45 -38 -45 -92 -30  0   -52 -25 -38 -30 -12 -45 -90 -45 -90 ];
     max = [  25  28 135  30  37  10  38  10  37  30  135  28  25  38  30  30  90  90  90  90 ];
 
@@ -112,7 +145,25 @@ function[] = updatePlot( i, text, eventName )
     plots = get( gca, 'Children' );
     for i = 1:length( plots )
         plot = plots(i);
-        if strcmp( 'line', get( plot , 'Type' ) ) % Update the lines.
+        if strcmp( 'scatter', get( plot, 'Type' ) )
+            if strcmp( get( plot, 'Tag' ), 'LFootRFoot' )
+                set( plot, 'xdata', [LFootRFoot.ComPosX] );
+                set( plot, 'ydata', [LFootRFoot.ComPosY] );
+                set( plot, 'zdata', [LFootRFoot.ComPosZ] );
+            elseif strcmp( get( plot, 'Tag' ), 'PelvisTorso' )
+                set( plot, 'xdata', [PelvisTorso.ComPosX] );
+                set( plot, 'ydata', [PelvisTorso.ComPosY] );
+                set( plot, 'zdata', [PelvisTorso.ComPosZ] );
+            elseif strcmp( get( plot, 'Tag' ), 'TorsoLArm' )
+                set( plot, 'xdata', [TorsoLArm.ComPosX] );
+                set( plot, 'ydata', [TorsoLArm.ComPosY] );
+                set( plot, 'zdata', [TorsoLArm.ComPosZ] );
+            elseif strcmp( get( plot, 'Tag' ), 'TorsoRArm' )
+                set( plot, 'xdata', [TorsoRArm.ComPosX] );
+                set( plot, 'ydata', [TorsoRArm.ComPosY] );
+                set( plot, 'zdata', [TorsoRArm.ComPosZ] );
+            end
+        elseif strcmp( 'line', get( plot , 'Type' ) ) % Update the lines.
             if strcmp( get( plot, 'Tag' ), 'LFootRFoot' )
                 set( plot, 'xdata', [LFootRFoot.X] );
                 set( plot, 'ydata', [LFootRFoot.Y] );
@@ -132,10 +183,22 @@ function[] = updatePlot( i, text, eventName )
             end
         elseif strcmp( 'patch', get( plot, 'Type' ) ) % Update the patches.
             tag = get( plot, 'Tag' );
-            fv = stlread( strcat( tag, '.stl' ) );
-            pos = data( MapJoint( tag ) ).position;
-            set( plots(i), 'Vertices', bsxfun( @plus, transpose( pos ), fv.vertices ) );
+            set( plot, 'Vertices', loadstl( MapJoint( tag ) ) );
         end
     end
     drawnow;
+end
+
+function[ V ] = loadstl( i )
+    global data;
+    V = getfield( data(i), 'V' );
+    roll = 90;
+    pitch = 90;
+    yaw = 90;
+    xrot = [ 1 0 0; 0 cosd(roll) -sind(roll); 0 -sind(roll) cosd(roll) ];
+    yrot = [ cosd(pitch) 0 sind(pitch); 0 1 0; -sind(pitch) 0 cosd(pitch) ];
+    zrot = [ cosd(yaw) sind(yaw) 0; -sind(yaw) cosd(yaw) 0; 0 0 1 ];
+    rot = xrot*yrot*zrot*V';
+    V = rot';
+    V = bsxfun( @plus, transpose( data(i).ComPos ), V );
 end

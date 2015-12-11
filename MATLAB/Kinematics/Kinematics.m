@@ -11,5 +11,5 @@ function[] = Kinematics()
     ForwardKinematics();
     Positions();
     LinkCoM();
-    CoM();
+    % CoM();
 end
