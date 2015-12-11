@@ -18,7 +18,7 @@ function[] = LinkCoM()
 
     %LFootToRFoot
 
-    MassofElements = [M(26),M(25),M(24),M(23),0,M(22),M(21),M(1),M(27),M(28),0,M(29),M(30),M(31),M(32)];
+    MassofElements = [M(26),M(25),M(24),M(23),M(22),M(21),M(1),M(27),M(28),M(29),M(30),M(31),M(32)];
 
     for i = 1:length(LFootRFoot)
         LFootRFoot(i).mass = MassofElements(i);
@@ -28,19 +28,21 @@ function[] = LinkCoM()
     LFootRFoot(2).ComPos = LFootRFoot(1).position ;
     LFootRFoot(3).ComPos = (LFootRFoot(1).position + LFootRFoot(2).position)/2;
     LFootRFoot(4).ComPos = (LFootRFoot(2).position + LFootRFoot(3).position)/2;
-    LFootRFoot(5).ComPos = [0;0;0];
-    LFootRFoot(6).ComPos = (LFootRFoot(3).position + LFootRFoot(4).position)/2;
-    LFootRFoot(7).ComPos = (LFootRFoot(6).position + LFootRFoot(7).position)/2;
-    LFootRFoot(8).ComPos = LFootRFoot(7).position ;
-    LFootRFoot(9).ComPos = (LFootRFoot(7).position + LFootRFoot(8).position)/2;
-    LFootRFoot(10).ComPos = (LFootRFoot(9).position + LFootRFoot(10).position)/2;
-    LFootRFoot(11).ComPos = [0;0;0];
-    LFootRFoot(12).ComPos =(LFootRFoot(9).position + LFootRFoot(10).position)/2;
-    LFootRFoot(13).ComPos = (LFootRFoot(12).position + LFootRFoot(13).position)/2;
-    LFootRFoot(14).ComPos = LFootRFoot(14).position ;
-    LFootRFoot(15).ComPos = LFootRFoot(15).position ;
-
-
+    LFootRFoot(5).ComPos = (LFootRFoot(3).position + LFootRFoot(4).position)/2;
+    LFootRFoot(6).ComPos = (LFootRFoot(5).position + LFootRFoot(6).position)/2;
+    LFootRFoot(7).ComPos = LFootRFoot(6).position ;
+    LFootRFoot(8).ComPos = (LFootRFoot(6).position + LFootRFoot(7).position)/2;
+    LFootRFoot(9).ComPos = (LFootRFoot(8).position + LFootRFoot(9).position)/2;
+    LFootRFoot(10).ComPos =(LFootRFoot(9).position + LFootRFoot(10).position)/2;
+    LFootRFoot(11).ComPos = (LFootRFoot(10).position + LFootRFoot(11).position)/2;
+    LFootRFoot(12).ComPos = LFootRFoot(12).position ;
+    LFootRFoot(13).ComPos = LFootRFoot(13).position ;
+    
+    for i = 1:length(LFootRFoot)
+        if ~strcmp(LFootRFoot(i).name,'')
+                data(MapJoint(LFootRFoot(i).name)).ComPos = LFootRFoot(i).ComPos;
+        end
+    end
     %%%%%%%%%%%%%%%%%%%
 
     % PelvisTorso
@@ -54,29 +56,46 @@ function[] = LinkCoM()
         else
             PelvisTorso(i).ComPos = (PelvisTorso(i-1).position + PelvisTorso(i).position)/2 ;
         end
+        if ~strcmp(PelvisTorso(i).name,'')
+                data(MapJoint(PelvisTorso(i).name)).ComPos = PelvisTorso(i).ComPos;
+        end
     end
 
     %%%%%%%%%%%%%%%%%%%
 
     % TorsoLArm 
 
-    MassofElements =  [0,M(14),M(15)+M(16)+M(17)+M(18)+M(19)+M(20)];
+    MassofElements =  [M(14),M(15)+M(16)+M(17)+M(18)+M(19)+M(20)];
 
     for i = 1:length(TorsoLArm)
-        TorsoLArm(i).mass = MassofElements(i) ;
-        TorsoLArm(i).ComPos = TorsoLArm(i).position;
-    end
+          TorsoLArm(i).mass = MassofElements(i) ;
+        if i == 1
+            TorsoLArm(i).ComPos = (data(5).position + TorsoLArm(i).position)/2 ;
+        else
+            TorsoLArm(i).ComPos = (TorsoLArm(i-1).position + TorsoLArm(i).position)/2 ;
+        end
+         if ~strcmp(TorsoLArm(i).name,'')
+                data(MapJoint(TorsoLArm(i).name)).ComPos = TorsoLArm(i).ComPos;
+        end
+   end
 
     %%%%%%%%%%%%%%%%%%%
 
     % TorsoRArm 
 
-    MassofElements = [0,M(5),M(6)+M(7)+M(8)+M(9)+M(10)+M(11)]; 
+    MassofElements = [M(5),M(6)+M(7)+M(8)+M(9)+M(10)+M(11)]; 
 
     for i = 1:length(TorsoRArm)
-        TorsoRArm(i).mass = MassofElements(i) ;
-        TorsoRArm(i).ComPos = TorsoRArm(i).position;
-    end
+          TorsoRArm(i).mass = MassofElements(i) ;
+        if i == 1
+            TorsoRArm(i).ComPos = (data(14).position + TorsoRArm(i).position)/2 ;
+        else
+            TorsoRArm(i).ComPos = (TorsoRArm(i-1).position + TorsoRArm(i).position)/2 ;
+        end
+        if ~strcmp(TorsoRArm(i).name,'')
+                data(MapJoint(TorsoRArm(i).name)).ComPos = TorsoRArm(i).ComPos;
+        end
+   end
 
 end
 

@@ -41,7 +41,7 @@ function [] = CoM()
        com_y = com_y + TorsoLArm(i).ComPos(2)*TorsoLArm(i).mass ;
        com_z = com_z + TorsoLArm(i).ComPos(3)*TorsoLArm(i).mass ;
     end
-    C = [com_x/sum(M);com_y/sum(M);com_z/sum(M)] ;
+    C = [com_x/sum(M);com_y/sum(M);com_z/sum(M)] 
     
 end
 

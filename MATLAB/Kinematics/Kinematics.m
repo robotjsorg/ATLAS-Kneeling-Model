@@ -10,6 +10,6 @@ function[] = Kinematics()
     Data();
     ForwardKinematics();
     Positions();
-    % LinkCoM();
-    % CoM();
+    LinkCoM();
+    CoM();
 end

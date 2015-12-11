@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-addpath('R:/MATLAB');
+addpath('R:/MATLAB/Dynamics');
 
 global q;
 global data;
