@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-addpath('R:/MATLAB');
+addpath('R:/MATLAB/Plot');
 
 global q;
 

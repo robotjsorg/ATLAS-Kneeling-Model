@@ -1,7 +1,8 @@
 clc; clear all; close all;
 
-addpath('R:/MATLAB');
+addpath('R:/MATLAB/Kinematics');
 
+global C;
 global q;
 global data;
 global LFootRFoot;
