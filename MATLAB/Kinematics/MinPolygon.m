@@ -2,12 +2,11 @@ function[FootPrint, FootOutline] = MinPolygon()
 
 %Import global data struct with joint position data    
 global LFootRFoot;
-global PelvisLArm;
-global PelvisRArm;
+%global PelvisLArm;
+%global PelvisRArm;
 
 %Joint Sizes i.e. Foot size or knee size
 FootSize = [.3048/20,.1016/20];
-KneeSize = [.3048/20,.1016/20];
     
 %Determine what joints are on ground plane
 %Ground plane is assumed to be z = 0 +/- .001 m
@@ -23,37 +22,31 @@ else
 end
 end
 
-for i = 1:6
-if PelvisLArm(i).position(3) < .001 && PelvisLArm(i).position(3) > -.001
-    GroundedJointsLArm(i) = 1;
-    GPos(:,j) = PelvisLArm(i).position(:);
-    j = j+1;
-else
-    GroundedJointsLArm(i) = 0;
-end
-end
-
-for i = 1:6
-if PelvisRArm(i).position(3) < .001 && PelvisRArm(i).position(3) > -.001
-    GroundedJointsRArm(i) = 1;
-    GPos(:,j) = PelvisRArm(i).position(:);
-    j = j+1;
-else
-    GroundedJointsRArm(i) = 0;
-end
-end
-
-
 [m,n] = size(GPos);
 
 %Foot Print / Knee Print
 for o=1:n
 FootPrint(:,:,o) = [GPos(1,o)+FootSize(1),GPos(2,o)+FootSize(2),0;GPos(1,o)-FootSize(1),GPos(2,o)+FootSize(2),0;GPos(1,o)+FootSize(1),GPos(2,o)-FootSize(2),0;GPos(1,o)-FootSize(1),GPos(2,o)-FootSize(2),0];
 end
+
 [r,t,p] = size(FootPrint)
 
+% %Standing on One Foot
+ if n == 1
+ FootOutline(:,1:3) = [FootPrint(4,:,1);FootPrint(3,:,1);FootPrint(2,:,1);FootPrint(1,:,1)];
+ end
+% 
+% %Standing on Two Feet
+ if n == 2
+ FootOutline(:,1:3) = [FootPrint(4,:,1);FootPrint(3,:,1);FootPrint(1,:,1);FootPrint(1,:,2);FootPrint(2,:,2);FootPrint(4,:,2);FootPrint(4,:,1)];
+ end
+% 
+% %Standing on Two Feet and Knee
+ if n == 3
+ FootOutline(:,1:3) = [FootPrint(4,:,1);FootPrint(3,:,1);FootPrint(4,:,2);FootPrint(3,:,2);FootPrint(3,:,3);FootPrint(1,:,3);FootPrint(2,:,3);FootPrint(2,:,1);FootPrint(4,:,1)];
+ end
 
-FootOutline(:,1:3) = [FootPrint(4,:,1);FootPrint(3,:,1);FootPrint(1,:,1);FootPrint(1,:,2);FootPrint(2,:,2);FootPrint(4,:,2);FootPrint(4,:,1)];
+
 %FootOutline = [FootPrint(:,1,1),
 
 %Plot points that are on ground plane
@@ -66,6 +59,9 @@ for o=1:p
 end
 
 plot3(FootOutline(:,1),FootOutline(:,2),FootOutline(:,3),'-r');
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
 
 end
 
