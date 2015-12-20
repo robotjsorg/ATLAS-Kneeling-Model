@@ -1,3 +1,0 @@
-function[] = ForwardRecursion()
-	
-end

@@ -1,3 +1,0 @@
-function[] = Torques()
-	
-end
