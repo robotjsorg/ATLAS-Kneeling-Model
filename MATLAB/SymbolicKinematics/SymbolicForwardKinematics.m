@@ -1,4 +1,4 @@
-function[] = ForwardKinematics()
+function[] = SymbolicForwardKinematics()
     global q;
     global data;
     global LFootRFoot;
@@ -57,7 +57,7 @@ function[] = ForwardKinematics()
     alphar = [-pi/2,pi/2,0,0,pi/2,-pi/2,pi/2,0];
 
     %%%%%%%%%%
-
+    
     % LFootRFoot
     for i = 1:length(d)
         LFootRFoot(i).name = nm{i};

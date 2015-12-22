@@ -1,6 +1,4 @@
-function[] = Dynamics( TimeStep )
-    addpath('R:\MATLAB\Kinematics');
-
+function[] = Dynamics()
     global q qd;
     global data;
     global C;
@@ -9,6 +7,7 @@ function[] = Dynamics( TimeStep )
     global TorsoLArm;
     global TorsoRArm;
 
+    Data();
     SymbolicKinematics();
 
     % Jacobians
@@ -16,22 +15,22 @@ function[] = Dynamics( TimeStep )
         A = vpa(jacobian( [LFootRFoot(i).X, LFootRFoot(i).Y, LFootRFoot(i).Z], q ));
         B = [ zeros(1, 20); zeros(1, 20); ones(1, 20) ];
         LFootRFoot(i).J = [ A; B ];
-        LFootRFoot(i).V = LFootRFoot(i).J*qd';
+        LFootRFoot(i).V = LFootRFoot(i).J*transpose(qd);
         
         Acom = vpa(jacobian( [LFootRFoot(i).ComPosX, LFootRFoot(i).ComPosY, LFootRFoot(i).ComPosZ], q ));
         Bcom = [ zeros(1, 20); zeros(1, 20); ones(1, 20) ];
         LFootRFoot(i).Jcom = [ Acom; Bcom ];
-        LFootRFoot(i).Vcom = LFootRFoot(i).Jcom*qd';        
+        LFootRFoot(i).Vcom = LFootRFoot(i).Jcom*transpose(qd);        
     end
     % Populate I
     for i = 1:length( LFootRFoot )
-        LFootRFoot(i).I = data(MapJoint(LFootRFoot(i).name).I;
+        LFootRFoot(i).I = data(MapJoint(LFootRFoot(i).name)).I;
     end
     % Lagrangians
     for i = 1:length( LFootRFoot )
-        K = 0.5*LFootRFoot(i).mass*norm(LFootRFoot(i).Vcom)^2;
+        K = 0.5*LFootRFoot(i).M*norm(LFootRFoot(i).Vcom)^2;
         Krot=0.5*LFootRFoot(i).I*norm(qd(i))^2;
-        P = LFootRFoot(i).mass*9.81*LFootRFoot(i).ComPosZ;
+        P = LFootRFoot(i).M*9.81*LFootRFoot(i).ComPosZ;
         LFootRFoot(i).L = K + Krot - P;
     end
     % Generalized Joint Torques

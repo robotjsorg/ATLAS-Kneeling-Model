@@ -11,7 +11,7 @@ function[] = LinkCoM()
 
     %LFootToRFoot
 
-    MassofElements = [M(26),M(25),M(24),M(23),M(22),M(21),M(1),M(27),M(28),M(29),M(30),M(31),M(32)];
+    MofElements = [M(26),M(25),M(24),M(23),M(22),M(21),M(1),M(27),M(28),M(29),M(30),M(31),M(32)];
 
     LFootRFoot(1).ComPos = LFootRFoot(1).position ;
     LFootRFoot(2).ComPos = LFootRFoot(1).position ;
@@ -28,7 +28,7 @@ function[] = LinkCoM()
     LFootRFoot(13).ComPos = LFootRFoot(13).position ;
     
     for i = 1:length(LFootRFoot)
-        LFootRFoot(i).mass = MassofElements(i);
+        LFootRFoot(i).M = data(MapJoint(LFootRFoot(i).name)).M;
         LFootRFoot(i).ComPosX = LFootRFoot(i).ComPos(1,1);
         LFootRFoot(i).ComPosY = LFootRFoot(i).ComPos(2,1);
         LFootRFoot(i).ComPosZ = LFootRFoot(i).ComPos(3,1);
@@ -40,10 +40,10 @@ function[] = LinkCoM()
 
     % PelvisTorso
 
-    MassofElements = [M(2),M(3),M(4)] ;
+    MofElements = [M(2),M(3),M(4)] ;
 
     for i = 1:length(PelvisTorso);
-        PelvisTorso(i).mass = MassofElements(i) ;
+        PelvisTorso(i).M = data(MapJoint(PelvisTorso(i).name)).M;
         if i == 1
             PelvisTorso(i).ComPos = (LFootRFoot(6).position + PelvisTorso(i).position)/2;
         else
@@ -63,10 +63,10 @@ function[] = LinkCoM()
 
     % TorsoLArm 
 
-    MassofElements =  [M(14),M(15)+M(16)+M(17)+M(18)+M(19)+M(20)];
+    MofElements =  [M(14),M(15)+M(16)+M(17)+M(18)+M(19)+M(20)];
 
     for i = 1:length(TorsoLArm)
-        TorsoLArm(i).mass = MassofElements(i) ;
+        TorsoLArm(i).M = data(MapJoint(TorsoLArm(i).name)).M;
         if i == 1
             TorsoLArm(i).ComPos = (data(5).position + TorsoLArm(i).position)/2 ;
         else
@@ -86,10 +86,10 @@ function[] = LinkCoM()
 
     % TorsoRArm 
 
-    MassofElements = [M(5),M(6)+M(7)+M(8)+M(9)+M(10)+M(11)]; 
+    MofElements = [M(5),M(6)+M(7)+M(8)+M(9)+M(10)+M(11)]; 
 
     for i = 1:length(TorsoRArm)
-        TorsoRArm(i).mass = MassofElements(i) ;
+        TorsoRArm(i).M = data(MapJoint(TorsoRArm(i).name)).M;
         if i == 1
             TorsoRArm(i).ComPos = (data(14).position + TorsoRArm(i).position)/2 ;
         else

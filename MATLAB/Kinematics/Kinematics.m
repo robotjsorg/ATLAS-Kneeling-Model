@@ -6,10 +6,12 @@ function[] = Kinematics()
     global PelvisTorso;
     global TorsoLArm;
     global TorsoRArm;
+    global MinPolyOutline;
 
     Data();
     ForwardKinematics();
     Positions();
     LinkCoM();
-    % CoM();
+    CoM();
+    MinPolygon();
 end

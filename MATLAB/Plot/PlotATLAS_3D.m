@@ -133,14 +133,32 @@ function[] = PlotATLAS()
          'Parent',   plotPoly, ...
          'Tag',     'CoMPoly');
 
+    % Plot 3D.
+    for i = 1:length( data )
+        if ~( strcmp( data(i).name, 'head' ) || strcmp( data(i).name, 'hokuyolink' ) || strcmp( data(i).name, 'llfarm' ) || strcmp( data(i).name, 'rlfarm' ) )
+            data(i).name
+            F = getfield( data(i), 'F' );
+            V = getfield( data(i), 'V' );
+            V = loadstl( i );
+            patch( 'Faces',           [F], ...
+                   'Vertices',        [V], ...
+                   'FaceColor',       [0.5 0.5 0.5], ...
+                   'EdgeColor',       [0.5 0.5 0.5], ...
+                   'FaceLighting',    'gouraud', ...
+                   'AmbientStrength', 0.15, ...
+                   'Parent',          gca, ...
+                   'Tag',             data(i).name );
+        end
+    end
+    
     % Light.
     light( 'Position', [ 3 3 3 ], 'Style', 'local' );
     
     % Joint limits.
     nm    = {'lfoot';'ltalus';'llleg';'luleg';'llglut';'luglut';'pelvis';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot';'ltorso';'mtorso';'utorso';'lclav';'lscap';'rclav';'rscap'};
     % updated limits as per our model   
-    min = [ -25 0 -135 -30  -92 -45 -38 -10 -37 -30  0  -90  -25 -38 -30 -12 -90 -90 -45 -90 ];
-    max = [  25 90   0  30   37  10  38  45  92  30  135  0   25  38  30  30  45  90  90  90 ];
+    min = [ -25 0 -135 -30 -92 -45 -38 -10 -37 -90  0  -90  -25 -38 -30 -12 -90 -90 -45 -90 ];
+    max = [  25 90   0  30  37  10  38  45  92  30  135  0   25  38  30  30  45  90  90  90 ];
 
     val = cell( 1, length(q) );
     for i = 1:length( q )
@@ -217,6 +235,11 @@ function[] = updatePlot( i, text, eventName )
                 set( plot, 'ydata', -C(2) );
                 set( plot, 'zdata',  C(1) );
             end
+        elseif strcmp( 'patch', get( plot, 'Type' ) ) % Update the patches.
+            tag = get( plot, 'Tag' );
+            fv = stlread( strcat( tag, '.stl' ) );
+            pos = data( MapJoint( tag ) ).position;
+            set( plots(i), 'Vertices', bsxfun( @plus, transpose( pos ), fv.vertices ) );
         end
     end
 
@@ -248,4 +271,20 @@ function resetButton_Callback( hObject, eventdata, handles )
 
     eventName = 'object_1';
     updatePlot( 0, 'Value', 'Reset' )
+end
+
+%%%%%%%%%%
+
+function[ V ] = loadstl( i )
+    global data;
+    V = getfield( data(i), 'V' );
+    roll = 90;
+    pitch = 90;
+    yaw = 90;
+    xrot = [ 1 0 0; 0 cosd(roll) -sind(roll); 0 -sind(roll) cosd(roll) ];
+    yrot = [ cosd(pitch) 0 sind(pitch); 0 1 0; -sind(pitch) 0 cosd(pitch) ];
+    zrot = [ cosd(yaw) sind(yaw) 0; -sind(yaw) cosd(yaw) 0; 0 0 1 ];
+    rot = xrot*yrot*zrot*V';
+    V = rot';
+    V = bsxfun( @plus, transpose( data(i).ComPos ), V );
 end
