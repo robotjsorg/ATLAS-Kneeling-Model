@@ -9,7 +9,7 @@ function[qmatrix] = MotionPlanning()
     global newq;
     
     run('q1.m');
-    run('q2.m');
+    run('q3.m');
 
     figure;
     set(gcf,'Renderer','zbuffer');

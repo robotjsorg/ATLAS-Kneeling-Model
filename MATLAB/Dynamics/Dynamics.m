@@ -1,14 +1,5 @@
 function[] = Dynamics()
-    global q qd;
-    global data;
-    global C;
-    global LFootRFoot;
-    global PelvisTorso;
-    global TorsoLArm;
-    global TorsoRArm;
-
-    Data();
-    SymbolicKinematics();
+    global q qd data C LFootRFoot PelvisTorso  TorsoLArm  TorsoRArm;
 
     % Jacobians
     for i = 1:length( LFootRFoot )
@@ -22,10 +13,12 @@ function[] = Dynamics()
         LFootRFoot(i).Jcom = [ Acom; Bcom ];
         LFootRFoot(i).Vcom = LFootRFoot(i).Jcom*transpose(qd);        
     end
+
     % Populate I
     for i = 1:length( LFootRFoot )
         LFootRFoot(i).I = data(MapJoint(LFootRFoot(i).name)).I;
     end
+
     % Lagrangians
     for i = 1:length( LFootRFoot )
         K = 0.5*LFootRFoot(i).M*norm(LFootRFoot(i).Vcom)^2;
@@ -33,10 +26,11 @@ function[] = Dynamics()
         P = LFootRFoot(i).M*9.81*LFootRFoot(i).ComPosZ;
         LFootRFoot(i).L = K + Krot - P;
     end
+
     % Generalized Joint Torques
     syms t;
     for i = 1:length( LFootRFoot )
-        tau = 0;
+        tau = 0; % Initialize this joint's torque as zero.
         for j = 1:length(q)
             d_qd = diff(LFootRFoot(i).L,qd(j));
             qs = sym('qs(t)');

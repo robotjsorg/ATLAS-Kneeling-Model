@@ -3,6 +3,6 @@ addpath(genpath('R:/MATLAB'));
 
 global data LFootRFoot PelvisTorso TorsoLArm TorsoRArm;
 global q;
-run('q2.m');
+run('q1.m');
 
 Plot();

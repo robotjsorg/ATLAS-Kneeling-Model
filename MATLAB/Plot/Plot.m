@@ -8,7 +8,6 @@ function[] = Plot()
     global TorsoRArm;
 
     Kinematics();
-
     PlotATLAS();
 
 % Trying to get 3D STL files working
