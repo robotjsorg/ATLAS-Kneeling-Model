@@ -8,8 +8,8 @@ function[] = Plot()
     global TorsoRArm;
 
     Kinematics();
-
     PlotATLAS();
-%     PlotCoM();
-%     PlotMinPolygon();
+
+% Trying to get 3D STL files working
+%    PlotATLAS_3D();
 end

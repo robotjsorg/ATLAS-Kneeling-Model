@@ -1,5 +1,4 @@
-function[] = MotionPlanning()
-    clc; clear all; close all;
+function[qmatrix] = MotionPlanning()
     global q;
     global data;
     global C;
@@ -10,19 +9,15 @@ function[] = MotionPlanning()
     global newq;
     
     run('q1.m');
-    run('q2.m');
-    
-    Kinematics();
+    run('q3.m');
 
     figure;
-    set( gcf, 'Renderer', 'zbuffer' );
-    
-    scr = get(0,'ScreenSize');
-    
-    figPos = [ 0.0 0.0 scr(3) scr(4)];
+    set(gcf,'Renderer','zbuffer');
+
+    figPos = [ 0.0 0.0 1200.0 600.0 ];
     set( gcf, 'position', figPos );
 
-    plotPos = [ 0.1 0.1 0.8 0.8 ];
+    plotPos = [ 0.1 0.1 0.4 0.8 ];
     set( gca, 'position', plotPos );
 
     xlim( [-2 2] ); ylim( [-2 2] ); zlim( [-2 2] );
@@ -62,10 +57,10 @@ function[] = MotionPlanning()
       
     for k = 1:2
         if(k==1) % forward motion
-           delta = newq - q; 
+           delta = newq - q ; 
            l=1;
-        else     % reverse motion
-           delta = q - newq; 
+        else    % reverse motion
+           delta = q - newq ; 
            l=1;
         end
 
@@ -78,9 +73,11 @@ function[] = MotionPlanning()
                 syms t0 a0 a1 a2 a3 ;
                 coeff = [a0; a1; a2; a3];     % coeff for motion in Y
 
-                constraints_q = [ q(i); 0;  newq(i); 0 ];
+                constraints_q =[q(i); 0;  newq(i); 0];
                 temp = [1, t0, t0^2, t0^3] ; % preparaing time base matrix 
-                temp_vel = [0, 1, 2*t0, 3*t0^2 ];
+                temp_vel = [0, 1, 2*t0, 3*t0^2 ];   
+                temp_acc = [0, 0, 2, 6*t0]; 
+                
                 tend = 5;
                 time(1,:) = subs(temp,t0,tstart);
                 time(2,:) = subs(temp_vel,t0,tstart);
@@ -93,21 +90,27 @@ function[] = MotionPlanning()
 
                 for j = 0:(tend-tstart)/TimeStep
                     t = tstart+j*TimeStep ;              % i'th time-step 
-                    q(i) = vpa(subs(temp*A,t0,t),5);    % x_pos at time td  
-
+                    q(i) = vpa(subs(temp*A,t0,t),5);     % x_pos at time td  
+                    
                     if(k==1) % forward motion
-                       Qfset(l,:) = q(1,:);
+                       QFset(l,:) = q(1,:);
+                       QvFset(l,:) = vpa(subs(temp_vel*A,t0,t),5);
+                       QaFset(l,:) = vpa(subs(temp_acc*A,t0,t),5);
                        l = l+1;
                     else    % reverse motion
-                       Qrset(l,:) = q(1,:);
+                       QRset(l,:) = q(1,:);
+                       QvRset(l,:) = vpa(subs(temp_vel*A,t0,t),5);
+                       QaRset(l,:) = vpa(subs(temp_acc*A,t0,t),5);
                        l = l+1;
                     end
+
                     DeltaAnimate();
                 end
                 delta = newq - q;
             end
         end
     end
+    qmatrix = 0;
 end
 
 % Update the Plot.
@@ -118,10 +121,11 @@ function[] = DeltaAnimate()
     global PelvisTorso;
     global TorsoLArm;
     global TorsoRArm;
+    
 
     Kinematics();
 
-    % Update the plots.
+ % Update the plots.
     plots = get( gca, 'Children' );
     for i = 1:length( plots )
         plot = plots(i);
@@ -146,4 +150,5 @@ function[] = DeltaAnimate()
         end
     end
     drawnow;
+
 end

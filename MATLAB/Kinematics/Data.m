@@ -3,8 +3,9 @@ function[] = Data()
     data = struct;
 
     % Object Name
-    Joint = {'pelvis';'ltorso';'mtorso';'utorso';'lclav';'lscap';'luarm';'llarm';'lufarm';'llfarm';'lhand';'head';'hokuyolink';'rclav';'rscap';'ruarm';'rlarm';'rufarm';'rlfarm';'rhand';'luglut';'llglut';'luleg';'llleg';'ltalus';'lfoot';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot'};
-
+    Object = {'pelvis';'ltorso';'mtorso';'utorso';'lclav';'lscap';'luarm';'llarm';'lfarm';'llfarm';'lhand';'head';'hokuyolink';'rclav';'rscap';'ruarm';'rlfarm';'rfarm';'rlarm';'rhand';'luglut';'llglut';'luleg';'llleg';'ltalus';'lfoot';'ruglut';'rlglut';'ruleg';'rlleg';'rtalus';'rfoot'};
+    NoSTL = {'llfarm';'hokuyolink';'rlfarm'}; % Renamed 'lufarm' to 'lfarm'
+    
     % Coordinates
     X = [0;-0.0125000000000000;-0.0125000000000000;-0.0126500000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.242100000000000;0.197500000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0.128100000000000;0;0;0.0500000000000000;0;0;0;0;0;0.0500000000000000;0;0;0];
     Y = [0;0;0;0;0.225600000000000;0.335600000000000;0.522600000000000;0.641600000000000;0.941150000000000;0.941150000000000;0.941150000000000;0;0;-0.225600000000000;-0.335600000000000;-0.522600000000000;-0.641600000000000;-0.641600000000000;-0.941150000000000;-0.941150000000000;0.0890000000000000;0.0890000000000000;0.111500000000000;0.111500000000000;0.111500000000000;0.111500000000000;-0.0890000000000000;-0.0890000000000000;-0.115000000000000;-0.111500000000000;-0.111500000000000;-0.111500000000000];
@@ -45,15 +46,17 @@ function[] = Data()
         0.02,0.01,1.30101*10^(-5),0.008];
 
     % Populate data structure.
-    for i = 1:length(Joint)
-        data(i).name = Joint{i};
-        data(i).m = M(i);
-        data(i).ixx = ixx(i);
-        data(i).ixy = ixy(i);
-        data(i).ixz = ixz(i);
-        data(i).iyy = iyy(i);
-        data(i).iyz = iyz(i);
-        data(i).izz = izz(i);
+    for i = 1:length(Object)
+        if ~( strcmp( Object{i}, 'hokuyolink' ) || strcmp( Object{i}, 'llfarm' ) || strcmp( Object{i}, 'rlfarm' ) )
+            fv = stlread( strcat( Object{i}, '.stl' ) );
+            data(i).F = fv.faces;
+            data(i).V = fv.vertices;
+        end
+        data(i).name = Object{i};
+        data(i).M = M(i);
+        data(i).I = [ ixx(i) ixy(i) ixz(i), ...
+                      ixy(i) iyy(i) iyz(i), ...
+                      ixz(i) iyz(i) izz(i) ];
     end
 
     % Geometries

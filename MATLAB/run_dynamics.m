@@ -1,11 +1,9 @@
 clc; clear all; close all;
+addpath(genpath('R:/MATLAB'));
 
-addpath('R:/MATLAB/Dynamics');
+global data LFootRFoot PelvisTorso TorsoLArm TorsoRArm;
+global q qd;
+run('qs.m');
 
-global q;
-global data;
-
-run('q1.m');
-
-TimeStep = 1;
-Dynamics( TimeStep );
+SymbolicKinematics();
+Dynamics();

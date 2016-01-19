@@ -3,7 +3,7 @@ function[ j ] = MapJoint( name )
 
     for i=1:length(data)
         if strcmp(name, data(i).name)
-          j=i;
+            j=i;
         end
     end
 end
