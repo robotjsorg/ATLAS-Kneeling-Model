@@ -29,11 +29,11 @@ function[] = LinkCoM()
     
     for i = 1:length(LFootRFoot)
         LFootRFoot(i).M = data(MapJoint(LFootRFoot(i).name)).M;
-        LFootRFoot(i).ComPosX = LFootRFoot(i).ComPos(1,1);
-        LFootRFoot(i).ComPosY = LFootRFoot(i).ComPos(2,1);
-        LFootRFoot(i).ComPosZ = LFootRFoot(i).ComPos(3,1);
+        LFootRFoot(i).ComPosX = LFootRFoot(i).ComPos(3,1);
+        LFootRFoot(i).ComPosY = -LFootRFoot(i).ComPos(2,1);
+        LFootRFoot(i).ComPosZ = LFootRFoot(i).ComPos(1,1);
         if ~strcmp(LFootRFoot(i).name,'')
-                data(MapJoint(LFootRFoot(i).name)).ComPos = LFootRFoot(i).ComPos;
+                data(MapJoint(LFootRFoot(i).name)).ComPos = [LFootRFoot(i).ComPosX;LFootRFoot(i).ComPosY;LFootRFoot(i).ComPosZ];
         end
     end
     %%%%%%%%%%%%%%%%%%%
@@ -50,12 +50,12 @@ function[] = LinkCoM()
             PelvisTorso(i).ComPos = (PelvisTorso(i-1).position + PelvisTorso(i).position)/2 ;
         end
         
-        PelvisTorso(i).ComPosX = PelvisTorso(i).ComPos(1,1);
-        PelvisTorso(i).ComPosY = PelvisTorso(i).ComPos(2,1);
-        PelvisTorso(i).ComPosZ = PelvisTorso(i).ComPos(3,1);
+        PelvisTorso(i).ComPosX = PelvisTorso(i).ComPos(3,1);
+        PelvisTorso(i).ComPosY = -PelvisTorso(i).ComPos(2,1);
+        PelvisTorso(i).ComPosZ = PelvisTorso(i).ComPos(1,1);
         
         if ~strcmp(PelvisTorso(i).name,'')
-                data(MapJoint(PelvisTorso(i).name)).ComPos = PelvisTorso(i).ComPos;
+                data(MapJoint(PelvisTorso(i).name)).ComPos = [PelvisTorso(i).ComPosX;PelvisTorso(i).ComPosY;PelvisTorso(i).ComPosZ];
         end
     end
 
@@ -73,12 +73,12 @@ function[] = LinkCoM()
             TorsoLArm(i).ComPos = (TorsoLArm(i-1).position + TorsoLArm(i).position)/2 ;
         end
         
-        TorsoLArm(i).ComPosX = TorsoLArm(i).ComPos(1,1);
-        TorsoLArm(i).ComPosY = TorsoLArm(i).ComPos(2,1);
-        TorsoLArm(i).ComPosZ = TorsoLArm(i).ComPos(3,1);
+        TorsoLArm(i).ComPosX = TorsoLArm(i).ComPos(3,1);
+        TorsoLArm(i).ComPosY = -TorsoLArm(i).ComPos(2,1);
+        TorsoLArm(i).ComPosZ = TorsoLArm(i).ComPos(1,1);
         
          if ~strcmp(TorsoLArm(i).name,'')
-                data(MapJoint(TorsoLArm(i).name)).ComPos = TorsoLArm(i).ComPos;
+                data(MapJoint(TorsoLArm(i).name)).ComPos = [TorsoLArm(i).ComPosX;TorsoLArm(i).ComPosY;TorsoLArm(i).ComPosZ];
         end
    end
 
@@ -96,12 +96,12 @@ function[] = LinkCoM()
             TorsoRArm(i).ComPos = (TorsoRArm(i-1).position + TorsoRArm(i).position)/2 ;
         end
         
-        TorsoRArm(i).ComPosX = TorsoRArm(i).ComPos(1,1);
-        TorsoRArm(i).ComPosY = TorsoRArm(i).ComPos(2,1);
-        TorsoRArm(i).ComPosZ = TorsoRArm(i).ComPos(3,1);
+        TorsoRArm(i).ComPosX = TorsoRArm(i).ComPos(3,1);
+        TorsoRArm(i).ComPosY = -TorsoRArm(i).ComPos(2,1);
+        TorsoRArm(i).ComPosZ = TorsoRArm(i).ComPos(1,1);
         
         if ~strcmp(TorsoRArm(i).name,'')
-                data(MapJoint(TorsoRArm(i).name)).ComPos = TorsoRArm(i).ComPos;
+                data(MapJoint(TorsoRArm(i).name)).ComPos = [TorsoRArm(i).ComPosX;TorsoRArm(i).ComPosY;TorsoRArm(i).ComPosZ];
         end
     end
 end

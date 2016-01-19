@@ -7,9 +7,9 @@ function[] = Plot()
     global TorsoLArm;
     global TorsoRArm;
 
-    Kinematics();
-    PlotATLAS();
+    run_kinematics();
+%    PlotATLAS();
 
 % Trying to get 3D STL files working
-%    PlotATLAS_3D();
+    PlotATLAS_3D();
 end

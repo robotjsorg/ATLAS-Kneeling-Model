@@ -70,6 +70,7 @@ function[] = ForwardKinematics()
         if ~strcmp(LFootRFoot(i).name,'')
             data(MapJoint(LFootRFoot(i).name)).step = LFootRFoot(i).step;
             data(MapJoint(LFootRFoot(i).name)).base = LFootRFoot(i).base;
+            data(MapJoint(LFootRFoot(i).name)).rpy = attitude(LFootRFoot(i).base);
         end
     end
     pT = LFootRFoot(7).base;
@@ -97,6 +98,7 @@ function[] = ForwardKinematics()
         if ~strcmp(PelvisTorso(i).name,'')
             data(MapJoint(PelvisTorso(i).name)).step = PelvisTorso(i).step;
             data(MapJoint(PelvisTorso(i).name)).base = PelvisTorso(i).base;
+            data(MapJoint(PelvisTorso(i).name)).rpy = attitude(PelvisTorso(i).base);
         end
     end
     tT = PelvisTorso(3).base; 
@@ -115,6 +117,7 @@ function[] = ForwardKinematics()
         if ~strcmp(TorsoLArm(i).name,'')
             data(MapJoint(TorsoLArm(i).name)).step = TorsoLArm(i).step;
             data(MapJoint(TorsoLArm(i).name)).base = TorsoLArm(i).base;
+            data(MapJoint(TorsoLArm(i).name)).rpy = attitude(TorsoLArm(i).base);
         end
     end
 
@@ -129,7 +132,8 @@ function[] = ForwardKinematics()
         end
         if ~strcmp(TorsoRArm(i).name,'')
             data(MapJoint(TorsoRArm(i).name)).step = TorsoRArm(i).step;
-            data(MapJoint(TorsoRArm(i).name)).base = TorsoRArm(i).base;
+            data(MapJoint(TorsoRArm(i).name)).base = TorsoRArm(i).base;            
+            data(MapJoint(TorsoRArm(i).name)).rpy = attitude(TorsoRArm(i).base);
         end
     end
     
@@ -168,4 +172,12 @@ function [ T ] = DH( params )
           0,          0,           0, 1];
 
     T = Rz*Tz*Tx*Rx;
+end
+
+function [angles] = attitude(T)
+
+    roll = atan2(T(2,1),T(1,1))*180/pi;
+    pitch = atan2(-T(3,1),norm([T(3,2) T(3,3)]))*180/pi;
+    yaw = atan2(T(3,2),T(3,3))*180/pi;
+    angles = [roll,pitch,yaw];
 end
